@@ -9,9 +9,12 @@ void  tableau(int tab[100][3])
 	/*_marron_*/
 	tab[1][0]=153;tab[1][1]=77;tab[1][2]=0;
 	/*_vertforet_*/
-	tab[2][0]=153;tab[2][1]=77;tab[2][2]=0;
+	tab[2][0]=0;tab[2][1]=86;tab[2][2]=27;
 	/*_sable_*/
-	tab[3][0]=153;tab[3][1]=77;tab[3][2]=0;
+	tab[3][0]=198;tab[3][1]=166;tab[3][2]=100;
+	/*_gris-cailloux_*/
+	tab[4][0]=184;tab[4][1]=183;tab[4][2]=153;
+	
 	
 	/*obstacle*/
 	/*_pointe-acier_*/
