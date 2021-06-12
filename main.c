@@ -1,3 +1,4 @@
+#include "main.h"
 int grille[200][300];
 etat_perso_t *etat_perso;
 
