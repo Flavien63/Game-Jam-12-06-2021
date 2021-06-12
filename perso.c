@@ -1,21 +1,7 @@
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-
 #include "perso.h"
 
-//gcc perso.c perso.h -o perso
-
-#define LONGUEUR 15    //300
-#define LARGEUR 10     //200
-#define HAUTEUR_SAUT 2 //10
-#define LARGEUR_PERSO 2
-#define HAUTEUR_PERSO 2 //10
-#define GRAVITE 1
-
-int grille[LONGUEUR][LARGEUR];
-etat_perso_t *etat_joueur;
+/*int grille[LONGUEUR][LARGEUR];
+etat_perso_t *etat_joueur;*/
 
 void init_grille()
 {
