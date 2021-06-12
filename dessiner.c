@@ -25,11 +25,11 @@ void actualiserdessin(int grille[200][300],etat_perso_t* etat, SDL_Renderer *ren
     int k=etat->x -2;
     int i=etat->y +1;
     int c;
-     for(k;k<etat->x +4;k++)
+     for(k;k<(etat->x +4);k++)
     {
-        for (i;i>etat->y -12;i--)
+        for (i;i>(etat->y -12);i--)
         {
-            c = grille[k][i];
+            c = grille[i][k];
             SDL_SetRenderDrawColor(renderer, couleurs[c][0], couleurs[c][1], couleurs[c][2], 255);
             rect.x = 5*i;
             rect.y = 5*k;

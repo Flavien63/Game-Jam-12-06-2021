@@ -1,6 +1,6 @@
 #include "perso.h"
 
-void init_grille(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
+/*void init_grille(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
 
     int i, j;
@@ -19,8 +19,8 @@ void init_grille(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
     grille[etat_joueur->x + 1][etat_joueur->y - 1] = 90;
     grille[etat_joueur->x][etat_joueur->y] = 90;
     grille[etat_joueur->x][etat_joueur->y - 1] = 90;
-}
-
+}*/
+/*
 void affichage(int grille[LONGUEUR][LARGEUR])
 {
     int i, j;
@@ -48,7 +48,7 @@ void affichage(int grille[LONGUEUR][LARGEUR])
         }
         printf("\n");
     }
-}
+}*/
 
 //Renvoie 1 si le perso a bouge, 0 sinon
 int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
@@ -80,7 +80,7 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
             { //bloque par obstacle, arret du saut
                 etat_joueur->saut = 0;
             }
-        }
+        }/*
         else if (horizontal == 1)
         {
             decalage_perso_diagonale_haut(grille, etat_joueur, 1);
@@ -88,7 +88,7 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
         else if (horizontal == -1)
         {
             decalage_perso_diagonale_haut(grille, etat_joueur, 0);
-        }
+        }*/
     }
     else
     {
@@ -116,6 +116,7 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
     return bouge;
 }
 
+/*
 int decalage_perso_diagonale_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur, int droite)
 {
 
@@ -147,7 +148,7 @@ int decalage_perso_diagonale_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *e
         peut_bouger += placement_perso(grille, etat_joueur);
     }
     return peut_bouger;
-}
+}*/
 
 //Renvoie 1 s'il peut sauter, 0 sinon (ie obstacle au dessus)
 int decalage_perso_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
@@ -234,8 +235,8 @@ int rien_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 
     if (dessus_tete >= 0) // verifie que c'est bien dans la matrice
     {
-        int dessus_tete_gauche = grille[etat_joueur->x][dessus_tete];     //case en dessous pied gauche
-        int dessus_tete_droite = grille[etat_joueur->x + 1][dessus_tete]; //case en dessous pied droit
+        int dessus_tete_gauche = grille[dessus_tete][etat_joueur->x];     //case en dessous pied gauche
+        int dessus_tete_droite = grille[dessus_tete][etat_joueur->x + 1]; //case en dessous pied droit
         air_dessus = ((dessus_tete_gauche == 0) && (dessus_tete_droite == 0));
         air_dessus = air_dessus || ((dessus_tete_gauche > 19) && (dessus_tete_droite > 19));
         air_dessus = air_dessus || ((dessus_tete_gauche > 19) && (dessus_tete_droite == 0));
