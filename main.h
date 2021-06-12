@@ -6,6 +6,7 @@
 #include "dessiner.h"
 #include "couleurs.h"
 #include "init_level.h"
+#include "perso.h"
 
 int main();
 
