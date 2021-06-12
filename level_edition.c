@@ -76,6 +76,58 @@ void ajout_cadre_noir(int mat[200][300])
     }
 }
 
+void ajout_coupe(int mat[200][300], int pos_x, int pos_y)
+{
+    if ((pos_x >= 0) && (pos_x + 14 < 200) && (pos_y >= 0) && (pos_y + 14 < 300))
+    {
+        for (int i = pos_x; i < pos_x + 14; i++)
+        {
+            for (int j = pos_y; j < pos_y + 14; j++)
+            {
+                if ((i == pos_x) && (j <= pos_y + 12) && (j >= pos_y + 2))
+                    mat[i][j] = 30;
+                if ((i == pos_x + 1) && (j <= pos_y + 13) && (j >= pos_y + 1))
+                    mat[i][j] = 30;
+                if (((i == pos_x + 2) || (i == pos_x + 3)) && ((j == pos_y) || (j == pos_y + 13) || ((j <= pos_y + 10) && (j >= pos_y + 3))))
+                    mat[i][j] = 30;
+                if ((i == pos_x + 4) && ((j == pos_y + 1) || ((j <= pos_y + 9) && (j >= pos_y + 4)) || (j == pos_y + 12)))
+                    mat[i][j] = 30;
+                if ((i == pos_x + 5) && ((j == pos_y + 2) || ((j <= pos_y + 8) && (j >= pos_y + 5)) || (j == pos_y + 11) || (j == pos_y + 10) || (j == pos_y + 3)))
+                    mat[i][j] = 30;
+                if (((i >= pos_x + 6) && (i <= pos_x + 9)) && ((j == pos_y + 6) || (j == pos_y + 7)))
+                    mat[i][j] = 30;
+                if (((i >= pos_x + 10) && (i <= pos_x + 13)) && ((j >= pos_y + 4) && (j <= pos_y + 9)))
+                    mat[i][j] = 30;
+            }
+        }
+    }
+}
+
+void ajout_bulle(int mat[200][300], int pos_x, int pos_y)
+{
+    if ((pos_x >= 0) && (pos_x + 14 < 200) && (pos_y >= 0) && (pos_y + 14 < 300))
+    {
+        for (int i = pos_x; i < pos_x + 14; i++)
+        {
+            for (int j = pos_y; j < pos_y + 14; j++)
+            {
+                if (((i == pos_x) || (i == pos_x + 13)) && ((j >= pos_y + 5) && (j <= pos_y + 8)))
+                    mat[i][j] = 30;
+                if (((i == pos_x + 1) || (i == pos_x + 12)) && ((j == pos_y + 3) || (j == pos_y + 4) || (j == pos_y + 9) || (j == pos_y + 10)))
+                    mat[i][j] = 30;
+                if (((i == pos_x + 2) || (i == pos_x + 11)) && ((j == pos_y + 2) || (j == pos_y + 11)))
+                    mat[i][j] = 30;
+                if (((j == pos_y + 1) || (j == pos_y + 12)) && ((i == pos_x + 3) || (i == pos_x + 4) || (i == pos_x + 9) || (i == pos_x + 10)))
+                    mat[i][j] = 30;
+                if (((j == pos_y) || (j == pos_y + 13)) && ((i >= pos_x + 5) && (i <= pos_x + 8)))
+                    mat[i][j] = 30;
+                if (((i == pos_x + 4) || (i == pos_x + 5)) && ((j == pos_y + 4) || (j == pos_y + 5)))
+                    mat[i][j] = 30;
+            }
+        }
+    }
+}
+
 void ajout_caillou(int mat[200][300], int pos_x, int pos_y)
 {
     if ((pos_x >= 0) && (pos_y >= 0) && (pos_x + 7 < 200) && (pos_y + 6 < 300))
