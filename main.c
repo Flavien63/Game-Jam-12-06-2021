@@ -26,8 +26,8 @@ int main()
     if (renderer == 0) {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
     }
-    int grille[300][200];
-    //initialiser grille   
+    int grille[200][300];
+    import_file(grille,"level1_alive");
     dessingrille(grille,renderer,couleurs);
     SDL_RenderPresent(renderer);
     SDL_Delay(10000);
