@@ -11,7 +11,7 @@ int main()
     etat_perso->saut = 0;
     etat_perso->mort = 0;
     int couleurs[100][3];
-    tableau(couleurs);
+    tableau_vivant(couleurs);
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
