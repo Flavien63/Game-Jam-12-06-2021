@@ -29,7 +29,7 @@ int main()
     int grille[300][200];
     //initialiser grille   
     dessingrille(grille,renderer,couleurs);
-    afficheEcran(renderer);
+    SDL_RenderPresent(renderer);
     SDL_Delay(10000);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
