@@ -1,8 +1,7 @@
 #include "couleurs.h"
 
-int ** tableau()
+void  tableau(int tab[100][3])
 {
-	int tab[100][3];
 	/*couleur du ciel */
 	tab[0][0]=51;
 	tab[0][1]=102;
@@ -11,8 +10,5 @@ int ** tableau()
 	tab[1][0]=153;
 	tab[1][1]=77;
 	tab[1][2]=0;
-	
-
-	return tab;
 }
 
