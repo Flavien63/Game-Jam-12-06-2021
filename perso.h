@@ -6,7 +6,11 @@ typedef struct etat_perso
     int x;
     int y;
     int saut;
+    int mort;  //0 dans le niveau vie, 1 dans le niveau mort
 }etat_perso_t;
+
+void init_grille();
+void affichage();
 
 int rien_haut();
 
@@ -21,7 +25,14 @@ int decalage_perso_gauche();
 
 
 
-int touche_sol(etat_perso_t *etat_joueur);
+int touche_sol();
 int deplacement_perso(int vertical, int horizontal);
+int gravite();
+
+void effacement_perso();
+void placement_perso();
+
+
+
 
 #endif
