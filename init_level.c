@@ -17,7 +17,7 @@ void import_level(int mat[200][300], FILE * level_file)
     }
 }
 
-void import_file(int mat[200][300], FILE * level_file)
+void import_file(int mat[200][300], const char * level_file)
 {
     FILE * file = fopen(level_file, "r");
     if (file)
