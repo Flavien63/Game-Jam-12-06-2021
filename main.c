@@ -28,9 +28,9 @@ int main()
     if (renderer == 0) {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
     }
-    initialiser(grille);
+    import_file(grille,"level1_alive.txt");
     dessingrille(grille,renderer,couleurs);
-    afficherEcran(renderer);
+    SDL_RenderPresent(renderer);
     int running=1;
     SDL_Event event;
     int dephorizon=0;
@@ -65,10 +65,10 @@ int main()
                     switch (event.key.keysym.sym)
                     {
                         case SDLK_LEFT :
-                            dephorizon=dephorizon-1
+                            dephorizon=dephorizon-1;
                             break;
                         case SDLK_RIGHT :
-                            dephorizon=dephorizon+1
+                            dephorizon=dephorizon+1;
                             break;
                         case SDLK_UP :
                             depvertical=1;
