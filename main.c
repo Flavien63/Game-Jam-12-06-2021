@@ -94,7 +94,7 @@ int main()
                 charger_carte();//a faire
                 flag=1;
             }
-            if (bouge)
+            if (bouge==1)
             {
                 actualiserdessin(grille,etat_perso,renderer,couleurs); 
             }
