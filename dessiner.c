@@ -10,8 +10,8 @@ void dessingrille(int grille[200][300], SDL_Renderer *renderer, int couleurs[100
         {
             c = grille[k][i];
             SDL_SetRenderDrawColor(renderer, couleurs[c][0], couleurs[c][1], couleurs[c][2], 255);
-            rect.x = 5*k;
-            rect.y = 5*i;
+            rect.x = 5*i;
+            rect.y = 5*k;
             rect.w = 5;
             rect.h = 5;
             SDL_RenderFillRect(renderer, &rect );
@@ -31,8 +31,8 @@ void dessingrille(int grille[200][300], SDL_Renderer *renderer, int couleurs[100
         {
             c = grille[k][i];
             SDL_SetRenderDrawColor(renderer, couleurs[c][0], couleurs[c][1], couleurs[c][2], 255);
-            rect.x = 5*k;
-            rect.y = 5*i;
+            rect.x = 5*i;
+            rect.y = 5*k;
             rect.w = 5;
             rect.h = 5;
             SDL_RenderFillRect(renderer, &rect );
