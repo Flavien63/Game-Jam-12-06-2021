@@ -32,6 +32,9 @@ void  tableau_vivant(int tab[100][3])
 	/*_pointe-bois_*/
 	tab[21][0]=119;tab[21][1]=70;tab[21][2]=52;
 	
+	/*trophee*/
+	tab[30][0]=251;tab[30][1]=255;tab[30][2]=0;
+	
 }
 
 
