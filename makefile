@@ -13,3 +13,9 @@ couleurs.o : couleurs.c couleurs.h
 
 dessiner.o : dessiner.c dessiner.h
 	$(CC) $(OPT) couleurs.c
+
+clear :
+	rm main.o couleurs.o dessiner.o
+	
+propre :
+	rm prog
