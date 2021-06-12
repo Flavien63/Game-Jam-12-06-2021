@@ -29,7 +29,7 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
     }
     initialiser(grille);
-    dessingrille(grille,renderer);
+    dessingrille(grille,renderer,couleurs);
     afficherEcran(renderer);
     int running=1;
     SDL_Event event;
