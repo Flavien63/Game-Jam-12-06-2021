@@ -24,7 +24,7 @@ void  tableau(int tab[100][3])
 	
 	/*bulle*/
 	/*_contour-de-la-bulle*/
-	tab[3][0]=255;tab[3][1]=255;tab[3][2]=255;
+	tab[30][0]=255;tab[30][1]=255;tab[30][2]=255;
 	
 	
 	
