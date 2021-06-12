@@ -2,6 +2,7 @@
 
 int main()
 {
+    int couleurs[100][3]=tableau();
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
