@@ -88,9 +88,9 @@ int main()
             bouge=deplacement_perso(depvertical,dephorizon);
             depvertical=0;
             dephorizon=0;
-            if (etat_perso->santé!=vm)
+            if (etat_perso->sante!=vm)
             {
-                vm=etat_perso->santé;
+                vm=etat_perso->sante;
                 charger_carte();//a faire
                 flag=1;
             }
