@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include "couleurs.h"
 
 void dessingrille(int grille[n][m], SDL_Renderer *renderer, couleurs[nb][3]);
 
