@@ -16,15 +16,8 @@ void  tableau_vivant(int tab[100][3])
 	tab[4][0]=184;tab[4][1]=183;tab[4][2]=153;
 	/*marron_fonce_*/
 	tab[5][0]=115;tab[5][1]=61;tab[5][2]=61;
-	/*_violet_fonce_*/
-	tab[75][0]=84;tab[75][1]=2;tab[75][2]=33;
-	/*_orange_*/
-	tab[7][0]=250;tab[7][1]=139;tab[7][2]=35;
-	/*_rouge_fonce_*/
-	tab[8][0]=117;tab[8][1]=40;tab[8][2]=40;
-	/*_rouge_plus_clair_*/
-	tab[9][0]=204;tab[9][1]=69;tab[9][2]=69;
-	
+	/*_noir_*/
+	tab[6][0]=0;tab[75][1]=0;tab[75][2]=0;
 	
 	/*obstacle*/
 	/*_pointe-acier_*/
@@ -54,6 +47,8 @@ void  tableau_mort(int tab[100][3])
 	tab[4][0]=184;tab[4][1]=183;tab[4][2]=153;
 	/*_rouge-plus-clair*/
 	tab[5][0]=115;tab[5][1]=61;tab[5][2]=61;
+	/*_noir_*/
+	tab[6][0]=0;tab[75][1]=0;tab[75][2]=0;
 	
 	
 	/*obstacle*/
