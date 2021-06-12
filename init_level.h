@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void import_level(int mat[300][200], FILE * level_file);
+void import_level(int mat[200][300], FILE * level_file);
 
-void import_file(int mat[300][200], const char * level_file);
+void import_file(int mat[200][300], const char * level_file);
 
 #endif
