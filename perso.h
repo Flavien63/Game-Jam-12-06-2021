@@ -37,6 +37,8 @@ int decalage_perso_diagonale_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *e
 int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int deplacement_perso(int vertical, int horizontal,int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int gravite(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
+int mort(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur);
+
 
 void effacement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *);

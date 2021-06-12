@@ -103,7 +103,7 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
         {
             bouge += decalage_perso_droite(grille, etat_joueur);
         }
-        if (bouge >= 2)
+        if (mort(grille,etat_joueur))
         {
             //etat_joueur->saut = 0;
             etat_joueur->mort = !etat_joueur->mort;
@@ -244,6 +244,21 @@ int rien_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
     }
     return air_dessus;
 }
+
+int mort(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
+{
+    int mort = 0;
+    int sous_pied = etat_joueur->y + 1;
+
+    if (sous_pied < LARGEUR) // verifie que c'est bien dans la matrice
+    {
+        int sol_gauche = grille[sous_pied][etat_joueur->x];     //case en dessous pied gauche
+        int sol_droite = grille[sous_pied][etat_joueur->x + 1]; //case en dessous pied droit
+        mort = ((sol_gauche >= 20 && sol_gauche <= 29) || (sol_droite >= 20 && sol_droite <= 29));
+    }
+    return mort;
+}
+
 
 //Renvoie 1 si le perso a au moins un pied sur le sol, 0 sinon
 int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)

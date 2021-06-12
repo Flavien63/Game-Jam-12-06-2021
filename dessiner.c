@@ -39,3 +39,17 @@ void actualiserdessin(int grille[200][300],etat_perso_t* etat, SDL_Renderer *ren
         }
     }
 }
+
+char* nomniveau(int n,int vm)
+{
+	 
+    char* nom=malloc(17*sizeof(char));
+	 nom[0]='\0';
+    strcat(nom,"level");
+	 char nb[3]="";
+	 sprintf(nb,"%d",n);
+	 strcat(nom,nb);
+    if (vm) strcat(nom,"_death.txt");
+    else strcat(nom,"_alive.txt");
+    return nom;
+}

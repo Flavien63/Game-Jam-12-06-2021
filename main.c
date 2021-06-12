@@ -10,16 +10,18 @@ int main()
     etat_perso->y = 50;
     etat_perso->saut = 0;
     etat_perso->mort = 0;
-    int couleurs[100][3];
-    tableau_vivant(couleurs);
+    int couleurs_vie[100][3];
+    tableau_vivant(couleurs_vie);
+    int couleurs_mort[100][3];
+    tableau_mort(couleurs_mort);
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
         return EXIT_FAILURE;
     }
     SDL_Window *window;
-    int width = 900;
-    int height = 600;
+    int width = 1500;
+    int height = 1000;
 
     window = SDL_CreateWindow("SDL2 Programme 0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               width, height,
@@ -38,8 +40,8 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
     }
     import_file(grille, "level1_alive.txt");
-    dessingrille(grille, renderer, couleurs);
     placement_perso(grille, etat_perso);
+    dessingrille(grille, renderer, couleurs_vie);
     SDL_RenderPresent(renderer);
     int running = 1;
     SDL_Event event;
@@ -48,6 +50,8 @@ int main()
     int bouge; //bouge 0 : rien, bouge 1 : actualiser
     int vm = 0;
     int flag = 0; //flag 1: redessiner, flag 0 : rien
+    char* nomfichier;
+	 int n=1;
 
     while (running)
     {
@@ -97,18 +101,29 @@ int main()
             dephorizon = 0;
             if (etat_perso->mort != vm)
             {
-                vm = etat_perso->mort;
-                /*   charger_carte();//a faire */
+                printf("il est mort\n");
+					 vm = etat_perso->mort;
+					 nomfichier=nomniveau(n,vm);
+					 printf("%s\n",nomfichier);
+                import_file(grille,nomfichier);
+                placement_perso(grille,etat_perso);
                 flag = 1;
             }
             if (bouge == 1)
             {
-                actualiserdessin(grille, etat_perso, renderer, couleurs);
-                SDL_RenderPresent(renderer);
+					 if (vm)
+                actualiserdessin(grille, etat_perso, renderer, couleurs_mort);
+                else 
+                actualiserdessin(grille, etat_perso, renderer, couleurs_vie);
+					 SDL_RenderPresent(renderer);
+					 
             }
             if (flag == 1)
             {
-                dessingrille(grille, renderer, couleurs);
+					 if (vm)
+                dessingrille(grille, renderer, couleurs_mort);
+                else 
+                dessingrille(grille, renderer, couleurs_vie);
                 SDL_RenderPresent(renderer);
             }
         }
