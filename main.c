@@ -29,7 +29,7 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
     }
     int grille[200][300];
-    import_file(grille,"level1_alive");
+    import_file(grille,"level1_alive.txt");
     dessingrille(grille,renderer,couleurs);
     SDL_RenderPresent(renderer);
     SDL_Delay(10000);
