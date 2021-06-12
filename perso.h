@@ -1,5 +1,17 @@
 #ifndef __PERSO_H__
 #define __PERSO_H__
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+//gcc perso.c perso.h -o perso
+
+#define LONGUEUR 15    //300
+#define LARGEUR 10     //200
+#define HAUTEUR_SAUT 2 //10
+#define LARGEUR_PERSO 2
+#define HAUTEUR_PERSO 2 //10
+#define GRAVITE 1
 
 typedef struct etat_perso
 {
