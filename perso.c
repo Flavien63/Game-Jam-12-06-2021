@@ -1,7 +1,21 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
 #include "perso.h"
 
-/*int grille[LONGUEUR][LARGEUR];
-etat_perso_t *etat_joueur;*/
+//gcc perso.c perso.h -o perso
+
+#define LONGUEUR 15    //300
+#define LARGEUR 10     //200
+#define HAUTEUR_SAUT 2 //10
+#define LARGEUR_PERSO 2
+#define HAUTEUR_PERSO 2 //10
+#define GRAVITE 1
+
+int grille[LONGUEUR][LARGEUR];
+etat_perso_t *etat_joueur;
 
 void init_grille()
 {
@@ -18,10 +32,10 @@ void init_grille()
     {
         grille[j][LARGEUR - 1] = 1;
     }
-    grille[etat_joueur->x + 1][etat_joueur->y] = 9;
-    grille[etat_joueur->x + 1][etat_joueur->y - 1] = 9;
-    grille[etat_joueur->x][etat_joueur->y] = 9;
-    grille[etat_joueur->x][etat_joueur->y - 1] = 9;
+    grille[etat_joueur->x + 1][etat_joueur->y] = 90;
+    grille[etat_joueur->x + 1][etat_joueur->y - 1] = 90;
+    grille[etat_joueur->x][etat_joueur->y] = 90;
+    grille[etat_joueur->x][etat_joueur->y - 1] = 90;
 }
 
 void affichage()
@@ -35,9 +49,13 @@ void affichage()
             {
                 printf("■");
             }
-            else if (grille[i][j] == 9)
+            else if (grille[i][j] == 90)
             {
                 printf("●");
+            }
+            else if (grille[i][j] == 20)
+            {
+                printf("▼");
             }
             else
             {
@@ -67,9 +85,9 @@ int deplacement_perso(int vertical, int horizontal)
     /****** SAUT *******/
     if (etat_joueur->saut > 0) //saute
     {
-        bouge = decalage_perso_haut() || bouge;
-        if (bouge)
-        { //en train de sauter
+        bouge += decalage_perso_haut();
+        if (bouge) //en train de sauter
+        {
             etat_joueur->saut--;
         }
         else
@@ -79,17 +97,23 @@ int deplacement_perso(int vertical, int horizontal)
     }
     else
     {
-        bouge = gravite() || bouge;
+        bouge += gravite();
     }
 
     /****** DEPLACEMENT GAUCHE - DROITE *******/
     if (horizontal == -1) //deplacement gauche
     {
-        bouge = decalage_perso_gauche() || bouge;
+        bouge += decalage_perso_gauche();
     }
     else if (horizontal == 1) //deplacement droite
     {
-        bouge = decalage_perso_droite() || bouge;
+        bouge += decalage_perso_droite();
+    }
+    if (bouge >= 2)
+    {
+        etat_joueur->saut = 0;
+        etat_joueur->mort = !etat_joueur->mort;
+        //printf("etat mort %d\n", etat_joueur->mort);
     }
     return bouge;
 }
@@ -98,11 +122,11 @@ int deplacement_perso(int vertical, int horizontal)
 int decalage_perso_haut()
 {
     int peut_sauter = rien_haut();
-    if (peut_sauter && etat_joueur->y >= 0) //pas d'obstacle au dessus
+    if (peut_sauter && etat_joueur->y - 1 >= 0) //pas d'obstacle au dessus
     {
         effacement_perso();
         --etat_joueur->y;
-        placement_perso();
+        peut_sauter += placement_perso();
     }
     return peut_sauter;
 }
@@ -117,7 +141,7 @@ int decalage_perso_droite()
 
         effacement_perso();
         ++etat_joueur->x;
-        placement_perso();
+        succes += placement_perso();
     }
     return succes;
 }
@@ -132,7 +156,7 @@ int decalage_perso_gauche()
 
         effacement_perso();
         --etat_joueur->x;
-        placement_perso();
+        succes += placement_perso();
     }
     return succes;
 }
@@ -149,6 +173,10 @@ int rien_cote(int droite)
     {
         air_cote = air_cote + grille[indice_cote][etat_joueur->y - i];
         ++i;
+    }
+    if (air_cote / HAUTEUR_PERSO > 9) //tout les blocks a cote ne sont pas de la dirt
+    {
+        air_cote = 0;
     }
     return !air_cote;
 }
@@ -175,6 +203,9 @@ int rien_haut()
         int dessus_tete_gauche = grille[etat_joueur->x][dessus_tete];     //case en dessous pied gauche
         int dessus_tete_droite = grille[etat_joueur->x + 1][dessus_tete]; //case en dessous pied droit
         air_dessus = ((dessus_tete_gauche == 0) && (dessus_tete_droite == 0));
+        air_dessus = air_dessus || ((dessus_tete_gauche > 9) && (dessus_tete_droite > 9));
+        air_dessus = air_dessus || ((dessus_tete_gauche > 9) && (dessus_tete_droite == 0));
+        air_dessus = air_dessus || ((dessus_tete_gauche == 0) && (dessus_tete_droite > 9));
     }
     return air_dessus;
 }
@@ -200,10 +231,10 @@ int gravite()
     int succes = 0;
     if (!touche_sol() && etat_joueur->y + GRAVITE < LARGEUR)
     {
+        succes = 1;
         effacement_perso();
         etat_joueur->y = etat_joueur->y + GRAVITE;
-        placement_perso();
-        succes = 1;
+        succes += placement_perso();
     }
     return succes;
 }
@@ -219,19 +250,31 @@ void effacement_perso()
         }
     }
 }
-void placement_perso()
+
+//Renvoie 1 si le perso est place sur une case >9 ie pic ...
+int placement_perso()
 {
+    int degat = 0;
     int i, j;
     for (i = 0; i < HAUTEUR_PERSO; i++)
     {
         for (j = 0; j < LARGEUR_PERSO; j++)
         {
-            grille[etat_joueur->x + j][etat_joueur->y - i] = 9;
+            degat = degat || (case_change_etat(grille[etat_joueur->x + j][etat_joueur->y - i]));
+            grille[etat_joueur->x + j][etat_joueur->y - i] = 90;
         }
     }
+    return degat;
 }
 
-/*int main()
+int case_change_etat(int valeur_case)
+{
+    return (valeur_case > 9); // tout ce qui n'est pas de la dirt
+}
+
+
+/*
+int main()
 {
 
     etat_joueur = (etat_perso_t *)malloc(sizeof(etat_perso_t));
@@ -241,8 +284,19 @@ void placement_perso()
     etat_joueur->mort = 0;
     init_grille();
 
+    grille[2][6] = 20;
+
+    grille[5][7] = 20;
+    grille[5][8] = 20;
+
     affichage();
-    deplacement_perso(1, 0);
+    printf("%d\n", deplacement_perso(1, 0));
+    affichage();
+
+    printf("%d\n", deplacement_perso(0, 0));
+    affichage();
+
+    printf("%d\n", deplacement_perso(0, 0));
     affichage();
 
     deplacement_perso(0, 0);
@@ -251,26 +305,22 @@ void placement_perso()
     deplacement_perso(0, 0);
     affichage();
 
-    deplacement_perso(0, 0);
+    printf("%d\n", deplacement_perso(0, 1));
     affichage();
 
-    deplacement_perso(0, 0);
+    printf("%d\n", deplacement_perso(0, 1));
     affichage();
 
-    deplacement_perso(0, 1);
+    printf("%d\n", deplacement_perso(0, 1));
     affichage();
 
-    deplacement_perso(0, 1);
-    affichage();
-
-    deplacement_perso(0, 1);
-    affichage();
-
-    deplacement_perso(0, 0);
+    printf("%d\n", deplacement_perso(0, 0));
     affichage();
 
     deplacement_perso(0, -1);
     affichage();
 
+    //printf("2 || 1 : %d\n", 1 || 2);
     return 0;
-}*/
+}
+*/
