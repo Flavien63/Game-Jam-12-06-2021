@@ -245,7 +245,7 @@ void placement_perso()
     }
 }
 
-int main()
+/*int main()
 {
 
     etat_joueur = (etat_perso_t *)malloc(sizeof(etat_perso_t));
@@ -287,4 +287,4 @@ int main()
     affichage();
 
     return 0;
-}
+}*/
