@@ -1,11 +1,15 @@
 #include "main.h"
-int grille[200][300];
-etat_perso_t *etat_perso;
 
 int main()
 {
-    int couleurs[100][3];
-    tableau(couleurs);
+	 int grille[200][300];
+	 etat_perso_t *etat_perso;
+	 etat_perso->x=0;
+	 etat_perso->y=0;
+	 etat_perso->saut=0;
+	 etat_perso->mort=0;
+	 int couleurs[100][3];
+	 tableau(couleurs);
     if (SDL_Init(SDL_INIT_VIDEO) == -1)
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError()); 
@@ -90,24 +94,26 @@ int main()
             bouge=deplacement_perso(depvertical,dephorizon);
             depvertical=0;
             dephorizon=0;
-            if (etat_perso->sante!=vm)
+            if (etat_perso->mort!=vm)
             {
-                vm=etat_perso->sante;
-                charger_carte();//a faire
+                vm=etat_perso->mort;
+             /*   charger_carte();//a faire */
                 flag=1;
             }
             if (bouge==1)
             {
                 actualiserdessin(grille,etat_perso,renderer,couleurs); 
+    				 SDL_RenderPresent(renderer);
             }
             if (flag==1)
             {
                 dessingrille(grille,renderer,couleurs);
+    				 SDL_RenderPresent(renderer);
             }
         }
         SDL_Delay(10);
     }
-    SDLL_DestroyRenderer(renderer);
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
     return 0;

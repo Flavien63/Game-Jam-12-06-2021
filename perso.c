@@ -1,23 +1,7 @@
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-
 #include "perso.h"
 
-//gcc perso.c perso.h -o perso
 
-#define LONGUEUR 15    //300
-#define LARGEUR 10     //200
-#define HAUTEUR_SAUT 2 //10
-#define LARGEUR_PERSO 2
-#define HAUTEUR_PERSO 2 //10
-#define GRAVITE 1
-
-int grille[LONGUEUR][LARGEUR];
-etat_perso_t *etat_joueur;
-
-void init_grille()
+void init_grille(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
 
     int i, j;
@@ -38,7 +22,7 @@ void init_grille()
     grille[etat_joueur->x][etat_joueur->y - 1] = 90;
 }
 
-void affichage()
+void affichage(int grille[LONGUEUR][LARGEUR])
 {
     int i, j;
     for (j = 0; j < LARGEUR; j++)
@@ -68,7 +52,7 @@ void affichage()
 }
 
 //Renvoie 1 si le perso a bouge, 0 sinon
-int deplacement_perso(int vertical, int horizontal)
+int deplacement_perso(int vertical, int horizontal,int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int bouge = 0;
 
@@ -76,7 +60,7 @@ int deplacement_perso(int vertical, int horizontal)
     {
         if (etat_joueur->saut == 0) //n'est pas deja entrain de sauter
         {
-            if (touche_sol(etat_joueur)) //est ce que le joueur a un pied sur le sol
+            if (touche_sol(grille,etat_joueur)) //est ce que le joueur a un pied sur le sol
             {
                 etat_joueur->saut = HAUTEUR_SAUT; //memoire du saut
             }
@@ -85,7 +69,7 @@ int deplacement_perso(int vertical, int horizontal)
     /****** SAUT *******/
     if (etat_joueur->saut > 0) //saute
     {
-        bouge += decalage_perso_haut();
+        bouge += decalage_perso_haut(grille,etat_joueur);
         if (bouge) //en train de sauter
         {
             etat_joueur->saut--;
@@ -97,17 +81,17 @@ int deplacement_perso(int vertical, int horizontal)
     }
     else
     {
-        bouge += gravite();
+        bouge += gravite(grille,etat_joueur);
     }
 
     /****** DEPLACEMENT GAUCHE - DROITE *******/
     if (horizontal == -1) //deplacement gauche
     {
-        bouge += decalage_perso_gauche();
+        bouge += decalage_perso_gauche(grille,etat_joueur);
     }
     else if (horizontal == 1) //deplacement droite
     {
-        bouge += decalage_perso_droite();
+        bouge += decalage_perso_droite(grille,etat_joueur);
     }
     if (bouge >= 2)
     {
@@ -119,51 +103,49 @@ int deplacement_perso(int vertical, int horizontal)
 }
 
 //Renvoie 1 s'il peut sauter, 0 sinon (ie obstacle au dessus)
-int decalage_perso_haut()
+int decalage_perso_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
-    int peut_sauter = rien_haut();
+    int peut_sauter = rien_haut(grille, etat_joueur);
     if (peut_sauter && etat_joueur->y - 1 >= 0) //pas d'obstacle au dessus
     {
-        effacement_perso();
+        effacement_perso(grille, etat_joueur);
         --etat_joueur->y;
-        peut_sauter += placement_perso();
+        peut_sauter += placement_perso(grille, etat_joueur);
     }
     return peut_sauter;
 }
 
 //Renvoie 1 si le perso c'est deplace sur la droite, 0 sinon (ie obstacle)
-int decalage_perso_droite()
+int decalage_perso_droite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
-    int succes = rien_droite();
+    int succes = rien_droite(grille,  etat_joueur);
     if (succes)
     {
-        int indice_cote = etat_joueur->x + LARGEUR_PERSO;
 
-        effacement_perso();
+        effacement_perso(grille, etat_joueur);
         ++etat_joueur->x;
-        succes += placement_perso();
+        succes += placement_perso(grille, etat_joueur);
     }
     return succes;
 }
 
 //Renvoie 1 si le perso c'est deplace sur la gauche, 0 sinon (ie obstacle)
-int decalage_perso_gauche()
+int decalage_perso_gauche(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
-    int succes = rien_gauche();
+    int succes = rien_gauche(grille, etat_joueur);
     if (succes)
     {
-        int indice_cote = etat_joueur->x - 1;
 
-        effacement_perso();
+        effacement_perso(grille, etat_joueur);
         --etat_joueur->x;
-        succes += placement_perso();
+        succes += placement_perso(grille, etat_joueur);
     }
     return succes;
 }
 
 //droite = 1 si on veut checker a droite du perso, 0 si on veut a gauche
 //Renvoie 1 si il ya que du vide sur le cote, 0 sinon
-int rien_cote(int droite)
+int rien_cote(int droite,int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int air_cote = 0;
     int i = 0;
@@ -174,7 +156,7 @@ int rien_cote(int droite)
         air_cote = air_cote + grille[indice_cote][etat_joueur->y - i];
         ++i;
     }
-    if (air_cote / HAUTEUR_PERSO > 9) //tout les blocks a cote ne sont pas de la dirt
+    if (air_cote / HAUTEUR_PERSO >19) //tout les blocks a cote ne sont pas de la dirt
     {
         air_cote = 0;
     }
@@ -182,18 +164,18 @@ int rien_cote(int droite)
 }
 
 //Renvoie 1 si il y a que de l'air a droite du perso, 0 sinon
-int rien_droite()
+int rien_droite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
-    return rien_cote(1);
+    return rien_cote(1, grille, etat_joueur);
 }
 //Renvoie 1 si il ya que de l'air a gauche du perso, 0 sinon
-int rien_gauche()
+int rien_gauche(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
-    return rien_cote(0);
+    return rien_cote(0,grille, etat_joueur);
 }
 
 //Revoie 1 si il y a de l'air au dessus du perso
-int rien_haut()
+int rien_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int air_dessus = 0;
     int dessus_tete = etat_joueur->y - HAUTEUR_PERSO;
@@ -203,15 +185,15 @@ int rien_haut()
         int dessus_tete_gauche = grille[etat_joueur->x][dessus_tete];     //case en dessous pied gauche
         int dessus_tete_droite = grille[etat_joueur->x + 1][dessus_tete]; //case en dessous pied droit
         air_dessus = ((dessus_tete_gauche == 0) && (dessus_tete_droite == 0));
-        air_dessus = air_dessus || ((dessus_tete_gauche > 9) && (dessus_tete_droite > 9));
-        air_dessus = air_dessus || ((dessus_tete_gauche > 9) && (dessus_tete_droite == 0));
-        air_dessus = air_dessus || ((dessus_tete_gauche == 0) && (dessus_tete_droite > 9));
+        air_dessus = air_dessus || ((dessus_tete_gauche >19) && (dessus_tete_droite >19));
+        air_dessus = air_dessus || ((dessus_tete_gauche >19) && (dessus_tete_droite == 0));
+        air_dessus = air_dessus || ((dessus_tete_gauche == 0) && (dessus_tete_droite >19));
     }
     return air_dessus;
 }
 
 //Renvoie 1 si le perso a au moins un pied sur le sol, 0 sinon
-int touche_sol()
+int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int touche_sol = 0;
     int sous_pied = etat_joueur->y + 1;
@@ -220,26 +202,26 @@ int touche_sol()
     {
         int sol_gauche = grille[etat_joueur->x][sous_pied];     //case en dessous pied gauche
         int sol_droite = grille[etat_joueur->x + 1][sous_pied]; //case en dessous pied droit
-        touche_sol = ((sol_gauche >= 1 && sol_gauche <= 9) || (sol_droite >= 1 && sol_droite <= 9));
+        touche_sol = ((sol_gauche >= 1 && sol_gauche <= 9) || (sol_droite >= 1 && sol_droite <=19));
     }
     return touche_sol;
 }
 
 //Retourne 1 si la gravite agit, 0 sinon (touche deja le sol)
-int gravite()
+int gravite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int succes = 0;
-    if (!touche_sol() && etat_joueur->y + GRAVITE < LARGEUR)
+    if (!touche_sol(grille,etat_joueur) && etat_joueur->y + GRAVITE < LARGEUR)
     {
         succes = 1;
-        effacement_perso();
+        effacement_perso(grille, etat_joueur);
         etat_joueur->y = etat_joueur->y + GRAVITE;
-        succes += placement_perso();
+        succes += placement_perso(grille,etat_joueur);
     }
     return succes;
 }
 
-void effacement_perso()
+void effacement_perso(int grille[LONGUEUR][LARGEUR],etat_perso_t *etat_joueur)
 {
     int i, j;
     for (i = 0; i < HAUTEUR_PERSO; i++)
@@ -252,7 +234,7 @@ void effacement_perso()
 }
 
 //Renvoie 1 si le perso est place sur une case >9 ie pic ...
-int placement_perso()
+int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int degat = 0;
     int i, j;
@@ -269,7 +251,7 @@ int placement_perso()
 
 int case_change_etat(int valeur_case)
 {
-    return (valeur_case > 9); // tout ce qui n'est pas de la dirt
+    return (valeur_case >19); // tout ce qui n'est pas de la dirt
 }
 
 
