@@ -7,7 +7,7 @@
  
 #define LONGUEUR 200
 #define LARGEUR 300
-#define HAUTEUR_SAUT 10
+#define HAUTEUR_SAUT 25
 #define LARGEUR_PERSO 2
 #define HAUTEUR_PERSO  10
 #define GRAVITE 1
@@ -32,6 +32,7 @@ int rien_gauche(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int decalage_perso_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int decalage_perso_droite(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int decalage_perso_gauche(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
+int decalage_perso_diagonale_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur, int droite);
 
 int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int deplacement_perso(int vertical, int horizontal,int grille[LONGUEUR][LARGEUR], etat_perso_t *);
