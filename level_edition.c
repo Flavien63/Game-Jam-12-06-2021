@@ -44,22 +44,34 @@ void ajout_sol_mort(int mat[200][300], int pos_x_deb, int pos_y_deb, int pos_x_f
         {
             for (int j = pos_y_deb; j < pos_y_fin + 1; j++)
             {
-                if ((i < pos_x_deb + 3) && (mat[i][j] == 75))
-                    mat[i][j] = 7;
+                if ((i < pos_x_deb + 3) && (mat[i][j] == 0))
+                    mat[i][j] = 2;
                 else
                 {
-                    if ((i == pos_x_deb + 3) && (mat[i][j] == 75) && (j % 2 == 1))
-                        mat[i][j] = 7;
+                    if ((i == pos_x_deb + 3) && (mat[i][j] == 0) && (j % 2 == 1))
+                        mat[i][j] = 2;
                     else
                     {
                         if (r % 25 == 1)
-                            mat[i][j] = 9;
+                            mat[i][j] = 5;
                         else
-                            mat[i][j] = 8;
+                            mat[i][j] = 1;
                     }
                     r = rand();
                 }
             }
+        }
+    }
+}
+
+void ajout_cadre_noir(int mat[200][300])
+{
+    for (int i = 0; i < 200; i ++)
+    {
+        for (int j = 0; j < 300; j ++)
+        {
+            if ((i == 0) || (j == 0) || (i == 199) || (j == 299))
+                mat[i][j] = 6;
         }
     }
 }
