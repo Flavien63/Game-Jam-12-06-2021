@@ -200,9 +200,9 @@ int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 
     if (sous_pied < LARGEUR) // verifie que c'est bien dans la matrice
     {
-        int sol_gauche = grille[etat_joueur->x][sous_pied];     //case en dessous pied gauche
-        int sol_droite = grille[etat_joueur->x + 1][sous_pied]; //case en dessous pied droit
-        touche_sol = ((sol_gauche >= 1 && sol_gauche <= 9) || (sol_droite >= 1 && sol_droite <=19));
+        int sol_gauche = grille[sous_pied][etat_joueur->x];     //case en dessous pied gauche
+        int sol_droite = grille[sous_pied][etat_joueur->x + 1]; //case en dessous pied droit
+        touche_sol = ((sol_gauche >= 1 && sol_gauche <=19) || (sol_droite >= 1 && sol_droite <=19));
     }
     return touche_sol;
 }
@@ -211,7 +211,7 @@ int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 int gravite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int succes = 0;
-    if (!touche_sol(grille,etat_joueur) && etat_joueur->y + GRAVITE < LARGEUR)
+    if (!touche_sol(grille,etat_joueur) && (etat_joueur->y + GRAVITE < LARGEUR))
     {
         succes = 1;
         effacement_perso(grille, etat_joueur);
@@ -228,7 +228,7 @@ void effacement_perso(int grille[LONGUEUR][LARGEUR],etat_perso_t *etat_joueur)
     {
         for (j = 0; j < LARGEUR_PERSO; j++)
         {
-            grille[etat_joueur->x + j][etat_joueur->y - i] = 0;
+            grille[etat_joueur->y - i][etat_joueur->x + j] = 0;
         }
     }
 }
@@ -242,8 +242,8 @@ int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
     {
         for (j = 0; j < LARGEUR_PERSO; j++)
         {
-            degat = degat || (case_change_etat(grille[etat_joueur->x + j][etat_joueur->y - i]));
-            grille[etat_joueur->x + j][etat_joueur->y - i] = 90;
+            degat = degat || (case_change_etat(grille[etat_joueur->y - i][etat_joueur->x + j]));
+            grille[etat_joueur->y - i][etat_joueur->x + j] = 90;
         }
     }
     return degat;

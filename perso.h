@@ -5,8 +5,8 @@
 #include <math.h>
 #include <stdlib.h>
  
-#define LONGUEUR 300
-#define LARGEUR 200
+#define LONGUEUR 200
+#define LARGEUR 300
 #define HAUTEUR_SAUT 10
 #define LARGEUR_PERSO 2
 #define HAUTEUR_PERSO  10

@@ -4,8 +4,9 @@ int main()
 {
 	 int grille[200][300];
 	 etat_perso_t *etat_perso;
-	 etat_perso->x=0;
-	 etat_perso->y=0;
+	 etat_perso=malloc(sizeof(etat_perso_t));
+	 etat_perso->x=50;
+	 etat_perso->y=50;
 	 etat_perso->saut=0;
 	 etat_perso->mort=0;
 	 int couleurs[100][3];
@@ -36,6 +37,7 @@ int main()
     }
     import_file(grille,"level1_alive.txt");
     dessingrille(grille,renderer,couleurs);
+	 placement_perso(grille,etat_perso);
     SDL_RenderPresent(renderer);
     int running=1;
     SDL_Event event;
@@ -91,7 +93,7 @@ int main()
         }
         if (flag)
         {
-            bouge=deplacement_perso(depvertical,dephorizon);
+            bouge=deplacement_perso(depvertical,dephorizon,grille,etat_perso);
             depvertical=0;
             dephorizon=0;
             if (etat_perso->mort!=vm)
