@@ -17,7 +17,7 @@ void  tableau(int tab[100][3])
 	/*marron_fonce_*/
 	tab[5][0]=115;tab[5][1]=61;tab[5][2]=61;
 	/*_violet_fonce_*/
-	tab[6][0]=151;tab[6][1]=31;tab[6][2]=114;
+	tab[6][0]=84;tab[6][1]=2;tab[6][2]=33;
 	/*_orange_*/
 	tab[7][0]=250;tab[7][1]=139;tab[7][2]=35;
 	/*_rouge_fonce_*/
