@@ -14,6 +14,16 @@ void  tableau(int tab[100][3])
 	tab[3][0]=198;tab[3][1]=166;tab[3][2]=100;
 	/*_gris-cailloux_*/
 	tab[4][0]=184;tab[4][1]=183;tab[4][2]=153;
+	/*marron_fonce_*/
+	tab[5][0]=184;tab[5][1]=183;tab[5][2]=153;
+	/*_violet_fonce_*/
+	tab[6][0]=151;tab[6][1]=31;tab[6][2]=114;
+	/*_orange_*/
+	tab[7][0]=250;tab[7][1]=139;tab[7][2]=35;
+	/*_rouge_fonce_*/
+	tab[8][0]=117;tab[8][1]=40;tab[8][2]=40;
+	/*_rouge_plus_clair_*/
+	tab[9][0]=204;tab[9][1]=69;tab[9][2]=69;
 	
 	
 	/*obstacle*/
