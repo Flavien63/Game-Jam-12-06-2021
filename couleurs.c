@@ -22,6 +22,11 @@ void  tableau(int tab[100][3])
 	/*_pointe-bois_*/
 	tab[21][0]=119;tab[21][1]=70;tab[21][2]=52;
 	
+	/*bulle*/
+	/*_contour-de-la-bulle*/
+	tab[3][0]=255;tab[3][1]=255;tab[3][2]=255;
+	
+	
 	
 }
 
