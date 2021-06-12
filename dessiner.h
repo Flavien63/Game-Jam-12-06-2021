@@ -5,8 +5,8 @@
 #include <SDL2/SDL_ttf.h>
 #include "couleurs.h"
 
-void dessingrille(int grille[200][300], SDL_Renderer *renderer, couleurs[nb][3]);
+void dessingrille(int grille[200][300], SDL_Renderer *renderer, int couleurs[110][3]);
 
-void actualiserdessin(int grille[200][300],etat_perso_t etat, SDL_Renderer *renderer, couleurs[nb][3]);
+void actualiserdessin(int grille[200][300],etat_perso_t etat, SDL_Renderer *renderer, int couleurs[110][3]);
 
 #endif
