@@ -1,6 +1,6 @@
 #include "couleurs.h"
 
-int * tableau()
+int ** tableau()
 {
 	int tab[100][3];
 	/*couleur du ciel */
