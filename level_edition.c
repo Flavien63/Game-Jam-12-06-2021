@@ -44,11 +44,11 @@ void ajout_sol_mort(int mat[200][300], int pos_x_deb, int pos_y_deb, int pos_x_f
         {
             for (int j = pos_y_deb; j < pos_y_fin + 1; j++)
             {
-                if ((i < pos_x_deb + 3) && (mat[i][j] == 6))
+                if ((i < pos_x_deb + 3) && (mat[i][j] == 75))
                     mat[i][j] = 7;
                 else
                 {
-                    if ((i == pos_x_deb + 3) && (mat[i][j] == 6) && (j % 2 == 1))
+                    if ((i == pos_x_deb + 3) && (mat[i][j] == 75) && (j % 2 == 1))
                         mat[i][j] = 7;
                     else
                     {
@@ -143,7 +143,7 @@ int main()
         for (j=0; j<300; j++)
         {
             mat1[i][j] = 0;
-            mat2[i][j] = 6;
+            mat2[i][j] = 75;
         }
     }
 
