@@ -6,7 +6,7 @@ void dessingrille(int grille[200][300], SDL_Renderer *renderer, int couleurs[100
     int k,i,c;
     for(k=0;k<200;k++)
     {
-        for (i=0;i<200;i++)
+        for (i=0;i<300;i++)
         {
             c = grille[k][i];
             SDL_SetRenderDrawColor(renderer, couleurs[c][0], couleurs[c][1], couleurs[c][2], 255);
