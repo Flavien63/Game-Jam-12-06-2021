@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <time.h>
 
+/*Compile avec : gcc level_editor.c -o level_design -g -Wall -Wextra*/
+
 void ajout_sol_vie(int mat[200][300], int pos_x_deb, int pos_y_deb, int pos_x_fin, int pos_y_fin)
 {
     srand(time(0));
@@ -189,11 +191,43 @@ void ajout_plateforme_mort(int mat[200][300], int pos_x, int pos_y, int longueur
 {
     if ((pos_x >= 0) && (pos_x < 198) && (pos_y >= 0) && (pos_y < 300))
     {
-        for (int j = pos_y; j < pos_y + longueur; j++)
+        for (int i = pos_x; i < pos_x + 7; i++)
         {
-            mat[pos_x][j] = 5;
-            mat[pos_x + 1][j] = 1;
-            mat[pos_x + 2][j] = 5;
+            for (int j = pos_y; j < pos_y + longueur; j++)
+            {
+                if (i == pos_x)
+                    mat[i][j] = 5;
+                else
+                {
+                    if ((i == pos_x + 1) && (j != pos_y) && (j != pos_y + longueur - 1))
+                        mat[i][j] = 1;
+                    else
+                    {
+                        if ((i == pos_x + 2) && (j>= pos_y + 1) && (j <= pos_y + longueur -2))
+                            mat[i][j] = 5;
+                        else
+                        {
+                            if ((i == pos_x + 3) && (j>= pos_y + 3) && (j <= pos_y + longueur - 4))
+                                mat[i][j] = 2;
+                            else
+                            {
+                                if ((i == pos_x + 4) && ((j == pos_y + 2) || (j == pos_y + (longueur/2) - 1) || (j == pos_y + (longueur/2) + 1) || (j == pos_y + longueur - 3)))
+                                    mat[i][j] = 2;
+                                else
+                                {
+                                    if ((i == pos_x + 5) &&((j == pos_y + 3) || (j == pos_y + (longueur / 2) - 2) || (j == pos_y + (longueur / 2) + 2) || (j == pos_y + longueur - 4) || (j == pos_y + (longueur/2))))
+                                        mat[i][j] = 2;
+                                    else
+                                    {
+                                        if ((i == pos_x + 6) && ((j == pos_y + (longueur / 2) - 3) || (j == pos_y + (longueur / 2) + 3) || (j == pos_y + (longueur/2))))
+                                            mat[i][j] = 2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
