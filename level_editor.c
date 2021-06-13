@@ -333,11 +333,11 @@ int main()
     ajout_pic_mort(mat1bis, 180, 30);
     ajout_pic_mort(mat1bis, 180, 35);
 
-    ajout_plateforme_mort(mat1bis, 160, 55, 15);
-    ajout_plateforme_mort(mat1bis, 140, 90, 15);
-    ajout_plateforme_mort(mat1bis, 120, 120, 15);
-    ajout_plateforme_mort(mat1bis, 100, 150, 15);
-    ajout_plateforme_mort(mat1bis, 80, 180, 15);
+    ajout_plateforme_mort(mat1bis, 160, 60, 15);
+    ajout_plateforme_mort(mat1bis, 140, 95, 15);
+    ajout_plateforme_mort(mat1bis, 120, 125, 15);
+    ajout_plateforme_mort(mat1bis, 100, 155, 15);
+    ajout_plateforme_mort(mat1bis, 80, 185, 15);
 
     ajout_bulle(mat1bis, 55, 260);
 
