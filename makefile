@@ -3,7 +3,7 @@ OPT  = -c -Wextra -Wall -g
 SDL2 = -lSDL2 -lSDL2_gfx -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2_net
 
 prog : main.o couleurs.o dessiner.o init_level.o perso.o
-	$(CC) main.o couleurs.o dessiner.o init_level.o perso.o $(SDL2) -o prog 
+	$(CC) main.o couleurs.o dessiner.o init_level.o perso.o plateform.o $(SDL2) -o prog 
 
 main.o : main.c main.h couleurs.o 
 	$(CC) $(OPT) main.c
@@ -19,6 +19,9 @@ couleurs.o : couleurs.c couleurs.h
 	
 perso.o : perso.c perso.h
 	$(CC) $(OPT) perso.c
+
+plateform.o : plateform.c plateform.h
+	$(CC) $(OPT) plateform.c
 
 clear :
 	rm main.o couleurs.o dessiner.o
