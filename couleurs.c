@@ -13,7 +13,7 @@ void  tableau_vivant(int tab[100][3])
 	/*_sable_*/
 	tab[3][0]=198;tab[3][1]=166;tab[3][2]=100;
 	/*_gris-cailloux_*/
-	tab[4][0]=184;tab[4][1]=183;tab[4][2]=153;
+	tab[4][0]=69;tab[4][1]=69;tab[4][2]=69;
 	/*marron_fonce_*/
 	tab[5][0]=115;tab[5][1]=61;tab[5][2]=61;
 	/*_noir_*/
@@ -38,15 +38,15 @@ void  tableau_mort(int tab[100][3])
 	
 	/*couleur du sol*/
 	/*_rouge_foncé_*/
-	tab[1][0]=117;tab[1][1]=40;tab[1][2]=400;
+	tab[1][0]=117;tab[1][1]=40;tab[1][2]=40;
 	/*_orange_*/
 	tab[2][0]=250;tab[2][1]=139;tab[2][2]=35;
 	/*_sable_*/
 	tab[3][0]=198;tab[3][1]=166;tab[3][2]=100;
 	/*_gris-cailloux_*/
-	tab[4][0]=184;tab[4][1]=183;tab[4][2]=153;
+	tab[4][0]=69;tab[4][1]=69;tab[4][2]=69;
 	/*_rouge-plus-clair*/
-	tab[5][0]=115;tab[5][1]=61;tab[5][2]=61;
+	tab[5][0]=204;tab[5][1]=69;tab[5][2]=69;
 	/*_noir_*/
 	tab[6][0]=0;tab[75][1]=0;tab[75][2]=0;
 	
