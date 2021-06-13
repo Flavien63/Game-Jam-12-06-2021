@@ -10,6 +10,7 @@ int main()
     etat_perso->y = 0;
     etat_perso->saut = 0;
     etat_perso->mort = 0;
+    etat_perso->fin_niveau=0;
     int couleurs_vie[100][3];
     tableau_vivant(couleurs_vie);
     int couleurs_mort[100][3];
@@ -178,12 +179,13 @@ int main()
                 actualiserdessin(grille, etat_perso, renderer, couleurs_vie);
             SDL_RenderPresent(renderer);
         }
-        if (bouge==3)
+        if (etat_perso->fin_niveau==1)
         {
             n=n+1;
             vm=0;
             nomfichier=nomniveau(n,vm);
             import_file(grille,nomfichier,1,etat_perso);
+            etat_perso->fin_niveau=0;
         }
         if (flag == 1)
         {
