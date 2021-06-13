@@ -311,32 +311,42 @@ int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 int dessine_perso(int i, int j)
 {
     int partie_perso;
-    if (j >= 2 && j <= 3)
+    if (j >= 1 && j <= 2)
     {
         if (i >= 0 && i <= 2)
         {
             partie_perso = 91; //jambes
         }
-        else if (j >= 4 && j <= 7)
+        else if (i >= 4 && i <= 7)
         {
-            partie_perso = 93; //t-shirt
+            partie_perso = 94; //t-shirt
         }
-        else if (j >= 8 && j <= 9)
+        else if (i == 8)
         {
-            partie_perso = 94; //tete
+            partie_perso = 91; //tete
+        }
+        else if (i == 9)
+        {
+            partie_perso = 93; //cheveux
+        }
+        else if (i == 3)
+        {
+            partie_perso = 92; //rouge
         }
     }
-    else if (j == 0 || j == 4)
+    else if (j == 3 || j == 0)
     {
         if (i >= 4 && i <= 7)
         {
-            partie_perso = 92; //bras
+            partie_perso = 91; //bras
         }
     }
     else
     {
         partie_perso = 90;
     }
+	 if(j==0 && i==9)
+		partie_perso= 93;
     return partie_perso;
 }
 
