@@ -302,7 +302,8 @@ int main()
             mat2bis[i][j] = 0;
         }
     }
-
+    
+    /****Niveau 1 vivant****/
     ajout_sol_vie(mat1, 70, 230, 199, 299);
     ajout_sol_vie(mat1, 180, 0, 199, 299);
 
@@ -322,7 +323,8 @@ int main()
     ajout_caillou(mat1, 185, 290);
 
     ajout_cadre_noir(mat1);
-
+    
+    /****Niveau 1 mort****/
     ajout_sol_mort(mat1bis, 70, 230, 199, 299);
     ajout_sol_mort(mat1bis, 180, 0, 199, 299);
 
@@ -340,7 +342,23 @@ int main()
     ajout_bulle(mat1bis, 55, 260);
 
     ajout_cadre_noir(mat1bis);
+    
+    /****Niveau 2 vivant****/
+    ajout_sol_vie(mat2, 150, 0, 199, 49);
+    ajout_sol_vie(mat2, 180, 50, 199,269);
+    ajout_sol_vie(mat2, 150, 270, 199, 299);
 
+    for (int i=0; i<44; i++)
+        ajout_pic_vie(mat2, 180, 50+5*i);
+
+    for (int i=0; i<4; i++)
+        ajout_pic_vie(mat2,142,30+5*i);
+
+    ajout_coupe(mat2,136,285);
+
+    ajout_cadre_noir(mat2);
+ 
+    /****Niveau 2 mort****/
     ajout_sol_mort(mat2bis, 150, 0, 199, 49);
     ajout_sol_mort(mat2bis, 180, 50, 199, 269);
     ajout_sol_mort(mat2bis, 150, 270, 199, 299);
@@ -364,10 +382,12 @@ int main()
     }
 
     ajout_cadre_noir(mat2bis);
+    
+   
 
     mat_to_file(mat1, "level1_alive.txt", 50, 179);
     mat_to_file(mat1bis, "level1_death.txt", 50, 179);
     mat_to_file(mat2bis, "level2_death.txt", 20, 149);
-
+    mat_to_file(mat1bis, "level1_death.txt",50,179);
     return 0;
 }
