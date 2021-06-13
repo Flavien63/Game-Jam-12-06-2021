@@ -20,8 +20,8 @@ int main()
         return EXIT_FAILURE;
     }
     SDL_Window *window;
-    int width = 1500;
-    int height = 1000;
+    int width = 900;
+    int height = 600;
 
     window = SDL_CreateWindow("SDL2 Programme 0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               width, height,
@@ -50,8 +50,8 @@ int main()
     int bouge; //bouge 0 : rien, bouge 1 : actualiser
     int vm = 0;
     int flag = 0; //flag 1: redessiner, flag 0 : rien
-    char* nomfichier;
-	 int n=1;
+    char *nomfichier;
+    int n = 1;
 
     while (running)
     {
@@ -94,40 +94,36 @@ int main()
         {
             depvertical = 1;
         }
-        if (flag)
+        bouge = deplacement_perso(depvertical, dephorizon, grille, etat_perso);
+        depvertical = 0;
+        dephorizon = 0;
+        if (etat_perso->mort != vm)
         {
-            bouge = deplacement_perso(depvertical, dephorizon, grille, etat_perso);
-            depvertical = 0;
-            dephorizon = 0;
-            if (etat_perso->mort != vm)
-            {
-                printf("il est mort\n");
-					 vm = etat_perso->mort;
-					 nomfichier=nomniveau(n,vm);
-					 printf("%s\n",nomfichier);
-                import_file(grille,nomfichier);
-                placement_perso(grille,etat_perso);
-                flag = 1;
-            }
-            if (bouge == 1)
-            {
-					 if (vm)
-                actualiserdessin(grille, etat_perso, renderer, couleurs_mort);
-                else 
-                actualiserdessin(grille, etat_perso, renderer, couleurs_vie);
-					 SDL_RenderPresent(renderer);
-					 
-            }
-            if (flag == 1)
-            {
-					 if (vm)
-                dessingrille(grille, renderer, couleurs_mort);
-                else 
-                dessingrille(grille, renderer, couleurs_vie);
-                SDL_RenderPresent(renderer);
-            }
+            vm = etat_perso->mort;
+            nomfichier = nomniveau(n, vm);
+            import_file(grille, nomfichier);
+            placement_perso(grille, etat_perso);
+            flag = 1;
         }
-        SDL_Delay(10);
+        if (bouge == 1)
+        {
+            if (vm)
+                actualiserdessin(grille, etat_perso, renderer, couleurs_mort);
+            else
+                actualiserdessin(grille, etat_perso, renderer, couleurs_vie);
+            SDL_RenderPresent(renderer);
+        }
+        if (flag == 1)
+        {
+            if (vm)
+                dessingrille(grille, renderer, couleurs_mort);
+            else
+                dessingrille(grille, renderer, couleurs_vie);
+            SDL_RenderPresent(renderer);
+            flag=0;
+        }
+
+        SDL_Delay(17);
     }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
