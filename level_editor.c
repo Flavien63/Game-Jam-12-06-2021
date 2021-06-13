@@ -250,11 +250,14 @@ int main()
     ajout_pic_mort(mat2, 180, 25);
     ajout_pic_mort(mat2, 180, 30);
 
-    ajout_plateforme_mort(mat2, 160, 50, 10);
-    ajout_plateforme_mort(mat2, 140, 80, 10);
-    ajout_plateforme_mort(mat2, 120, 110, 10);
-    ajout_plateforme_mort(mat2, 100, 140, 10);
-    ajout_plateforme_mort(mat2, 80, 170, 10);
+    ajout_plateforme_mort(mat2, 160, 50, 15);
+    ajout_plateforme_mort(mat2, 140, 85, 15);
+    ajout_plateforme_mort(mat2, 120, 115, 15);
+    ajout_plateforme_mort(mat2, 100, 145, 15);
+    ajout_plateforme_mort(mat2, 80, 175, 15);
+    
+    ajout_coupe(mat1, 55, 280);
+    ajout_bulle(mat2, 55, 260);
 
     ajout_caillou(mat1, 85, 250);
     ajout_caillou(mat1, 190, 25);
