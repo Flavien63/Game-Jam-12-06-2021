@@ -4,6 +4,28 @@
 
 /*Compile avec : gcc level_editor.c -o level_design -g -Wall -Wextra*/
 
+void ajout_bouton(int mat[200][300], int pos_x_deb, int pos_y_deb, int pos_x_fin, int pos_y_fin)
+{
+    if ((pos_x_deb >= 0) && (pos_y_deb >= 0) && (pos_x_fin < 200) && (pos_y_fin < 300))
+    {
+        for (int i = pos_x_deb; i <= pos_x_fin; i++)
+        {
+            for (int j = pos_y_deb; j <= pos_y_fin; j++)
+            {
+                mat[i][j] = 7;
+            }
+        }
+        for (int i = pos_x_deb; i <= pos_y_fin; i ++)
+        {
+            for (int j = pos_y_deb; j <= pos_y_fin; j ++)
+            {
+                if ((i == pos_x_deb) || (j == pos_y_deb) || (i == pos_x_fin) || (j == pos_y_fin))
+                    mat[i][j] = 6;
+            }
+        }
+    }
+}
+
 void ajout_sol_vie(int mat[200][300], int pos_x_deb, int pos_y_deb, int pos_x_fin, int pos_y_fin)
 {
     srand(time(0));
@@ -332,6 +354,7 @@ int main()
 {
     int i,j;
 
+    int mat0[200][300];
     int mat1[200][300];
     int mat1bis[200][300];
     int mat2[200][300];
@@ -343,12 +366,19 @@ int main()
     {
         for (j=0; j<300; j++)
         {
+            mat0[i][j] = 0;
             mat1[i][j] = 0;
             mat1bis[i][j] = 0;
             mat2[i][j] = 0;
             mat2bis[i][j] = 0;
         }
     }
+
+    /****Menu****/
+    ajout_sol_vie(mat0, 180, 0, 199, 299);
+    ajout_bouton(mat0, 75, 33, 225, 66);
+    ajout_bouton(mat0, 75, 82, 225, 115);
+    ajout_bouton(mat0, 75, 131, 225, 164);
     
     /****Niveau 1 vivant****/
     ajout_sol_vie(mat1, 70, 230, 199, 299);
@@ -495,6 +525,7 @@ int main()
 
     ajout_cadre_noir(mat3bis);
 
+    mat_to_file(mat0, "menu.txt", 0,0);
     mat_to_file(mat1, "level1_alive.txt", 50, 179);
     mat_to_file(mat1bis, "level1_death.txt", 50, 179);
     mat_to_file(mat2, "level2_alive.txt", 20, 149);
