@@ -249,7 +249,7 @@ int main()
             {
                 niveau(renderer, taille, numniv(n));
                 SDL_RenderPresent(renderer);
-                SDL_Delay(2000);
+                SDL_Delay(1000);
                 vm = 0;
                 nomfichier = nomniveau(n, vm);
                 import_file(grille, nomfichier, 1, etat_perso);
@@ -262,7 +262,7 @@ int main()
                 running = 0;
                 niveau(renderer, taille, "Bravo ! C'est fini");
                 SDL_RenderPresent(renderer);
-                SDL_Delay(2000);
+                SDL_Delay(1000);
             }
         }
         if (flag == 1)
