@@ -50,10 +50,11 @@ void affichage(int grille[LONGUEUR][LARGEUR])
     }
 }*/
 
-//Renvoie 1 si le perso a bouge, 0 sinon
+//Renvoie 1 si le perso a bouge, 2 si il a bouge et pris des degats, 3 si gagne (ie coupe), 0 sinon (ie pas bouge)
 int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int bouge = 0;
+    int j = 0;
     effacement_perso(grille, etat_joueur);
 
     if (vertical == 1) //appuye sur la touche sauter
@@ -69,8 +70,9 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
     /****** SAUT *******/
     if (etat_joueur->saut > 0) //saute
     {
+        for (j = 0; j < SAUT; ++j)
+            bouge = decalage_perso_haut(grille, etat_joueur) || bouge;
 
-        bouge = decalage_perso_haut(grille, etat_joueur) || bouge;
         if (bouge) //en train de sauter
         {
             etat_joueur->saut--;
@@ -79,34 +81,33 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
         { //bloque par obstacle, arret du saut
             etat_joueur->saut = 0;
         }
-        /*
-        else if (horizontal == 1)
-        {
-            decalage_perso_diagonale_haut(grille, etat_joueur, 1);
-        }
-        else if (horizontal == -1)
-        {
-            decalage_perso_diagonale_haut(grille, etat_joueur, 0);
-        }*/
     }
     else
     {
-        bouge = gravite(grille, etat_joueur) || bouge;
+        for (j = 0; j < GRAVITE; ++j)
+        {
+            bouge = gravite(grille, etat_joueur) || bouge;
+        }
     }
 
     /****** DEPLACEMENT GAUCHE - DROITE *******/
     if (horizontal == -1) //deplacement gauche
     {
-        bouge = decalage_perso_gauche(grille, etat_joueur) || bouge;
+        for (j = 0; j < DEPLACEMENT_COTE; j++)
+        {
+            bouge = decalage_perso_gauche(grille, etat_joueur) || bouge;
+        }
     }
     else if (horizontal == 1) //deplacement droite
     {
-        bouge = decalage_perso_droite(grille, etat_joueur) || bouge;
+        for (j = 0; j < DEPLACEMENT_COTE; j++)
+        {
+            bouge = decalage_perso_droite(grille, etat_joueur) || bouge;
+        }
     }
 
     bouge += placement_perso(grille, etat_joueur);
 
-    // if (mort(grille, etat_joueur))
     if (bouge >= 2)
     {
         //etat_joueur->saut = 0;
@@ -115,44 +116,11 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
         //etat_joueur->y = etat_joueur->y - 1;
         //placement_perso(grille, etat_joueur);
         //printf("etat mort %d\n", etat_joueur->mort);
+        printf("%d \n", etat_joueur->mort);
     }
 
     return bouge;
 }
-
-/*
-int decalage_perso_diagonale_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur, int droite)
-{
-
-    int peut_bouger = rien_haut(grille, etat_joueur);
-    peut_bouger = peut_bouger && ((1 - droite) * rien_gauche(grille, etat_joueur) || droite * rien_droite(grille, etat_joueur));
-    int x_cote = etat_joueur->x + (1 - droite) * (-1) + droite * LARGEUR_PERSO;
-    int y_dessus = etat_joueur->y + (1 - droite) * (-1) + droite * LARGEUR_PERSO;
-    if (x_cote >= 0 && x_cote <= LONGUEUR && y_dessus >= 0) //pas d'obstacle en diagonale
-    {
-        peut_bouger = peut_bouger && grille[y_dessus][x_cote];
-    }
-    else
-    {
-        peut_bouger = 0;
-    }
-
-    if (peut_bouger)
-    {
-        effacement_perso(grille, etat_joueur);
-        --etat_joueur->y;
-        if (droite)
-        {
-            ++etat_joueur->x;
-        }
-        else
-        {
-            --etat_joueur->x;
-        }
-        peut_bouger += placement_perso(grille, etat_joueur);
-    }
-    return peut_bouger;
-}*/
 
 //Renvoie 1 s'il peut sauter, 0 sinon (ie obstacle au dessus)
 int decalage_perso_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
@@ -160,9 +128,7 @@ int decalage_perso_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur
     int peut_sauter = rien_haut(grille, etat_joueur);
     if (peut_sauter && etat_joueur->y - 1 >= 0) //pas d'obstacle au dessus
     {
-        //effacement_perso(grille, etat_joueur);
-        --etat_joueur->y;
-        //peut_sauter += placement_perso(grille, etat_joueur);
+        etat_joueur->y -= 1;
     }
     return peut_sauter;
 }
@@ -174,9 +140,7 @@ int decalage_perso_droite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joue
     if (succes)
     {
 
-        //effacement_perso(grille, etat_joueur);
-        ++etat_joueur->x;
-        //succes += placement_perso(grille, etat_joueur);
+        etat_joueur->x += 1;
     }
     return succes;
 }
@@ -187,9 +151,7 @@ int decalage_perso_gauche(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joue
     int succes = rien_gauche(grille, etat_joueur);
     if (succes)
     {
-        //effacement_perso(grille, etat_joueur);
-        --etat_joueur->x;
-        //succes += placement_perso(grille, etat_joueur);
+        etat_joueur->x -= 1;
     }
     return succes;
 }
@@ -212,7 +174,7 @@ int rien_cote(int droite, int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joue
     {
         air_cote = 1;
     }
-    else if (air_cote > 0 && air_cote <= 19) //tout les blocks a cote ne sont pas de la dirt
+    else if (air_cote > 0 && air_cote <= 19) //si ya un block de dirt
     {
         air_cote = 0;
     }
@@ -234,17 +196,24 @@ int rien_gauche(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 //Revoie 1 si il y a de l'air au dessus du perso
 int rien_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
-    int air_dessus = 0;
+    int air_dessus = 1;
     int dessus_tete = etat_joueur->y - HAUTEUR_PERSO;
+    int j;
+    int case_dessus_tete = 0;
 
     if (dessus_tete >= 0) // verifie que c'est bien dans la matrice
     {
-        int dessus_tete_gauche = grille[dessus_tete][etat_joueur->x];     //case en dessous pied gauche
+        /*   int dessus_tete_gauche = grille[dessus_tete][etat_joueur->x];     //case en dessous pied gauche
         int dessus_tete_droite = grille[dessus_tete][etat_joueur->x + 1]; //case en dessous pied droit
         air_dessus = ((dessus_tete_gauche == 0) && (dessus_tete_droite == 0));
         air_dessus = air_dessus || ((dessus_tete_gauche > 19) && (dessus_tete_droite > 19));
         air_dessus = air_dessus || ((dessus_tete_gauche > 19) && (dessus_tete_droite == 0));
-        air_dessus = air_dessus || ((dessus_tete_gauche == 0) && (dessus_tete_droite > 19));
+        air_dessus = air_dessus || ((dessus_tete_gauche == 0) && (dessus_tete_droite > 19));*/
+        for (j = 0; j < LARGEUR_PERSO; j++)
+        {
+            case_dessus_tete = ((grille[dessus_tete][etat_joueur->x + j] == 0) || (grille[dessus_tete][etat_joueur->x + j] > 19));
+            air_dessus = air_dessus && case_dessus_tete;
+        }
     }
     return air_dessus;
 }
@@ -268,13 +237,22 @@ int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int touche_sol = 0;
     int sous_pied = etat_joueur->y + 1;
+    int case_sous_pied;
+    int j;
 
     if (sous_pied < LARGEUR) // verifie que c'est bien dans la matrice
     {
-        int sol_gauche = grille[sous_pied][etat_joueur->x];     //case en dessous pied gauche
+        /*   int sol_gauche = grille[sous_pied][etat_joueur->x];     //case en dessous pied gauche
         int sol_droite = grille[sous_pied][etat_joueur->x + 1]; //case en dessous pied droit
         touche_sol = ((sol_gauche >= 1 && sol_gauche <= 19) || (sol_droite >= 1 && sol_droite <= 19));
+        */
+        for (j = 0; j < LARGEUR_PERSO; j++)
+        {
+            case_sous_pied = ((grille[sous_pied][etat_joueur->x + j] > 0) && (grille[sous_pied][etat_joueur->x + j] <= 19));
+            touche_sol = touche_sol || case_sous_pied;
+        }
     }
+
     return touche_sol;
 }
 
@@ -282,12 +260,10 @@ int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 int gravite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int succes = 0;
-    if (!touche_sol(grille, etat_joueur) && (etat_joueur->y + GRAVITE < LARGEUR))
+    if (!touche_sol(grille, etat_joueur) && (etat_joueur->y + 1 < LARGEUR))
     {
         succes = 1;
-        //effacement_perso(grille, etat_joueur);
-        etat_joueur->y = etat_joueur->y + GRAVITE;
-        //succes += placement_perso(grille, etat_joueur);
+        etat_joueur->y += 1;
     }
     return succes;
 }
@@ -309,11 +285,20 @@ int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int degat = 0;
     int i, j;
+    int valeur_case;
     for (i = 0; i < HAUTEUR_PERSO; i++)
     {
         for (j = 0; j < LARGEUR_PERSO; j++)
         {
-            degat = degat || (case_change_etat(grille[etat_joueur->y - i][etat_joueur->x + j]));
+            valeur_case = grille[etat_joueur->y - i][etat_joueur->x + j];
+            if (valeur_case == 32)
+            {
+                etat_joueur->fin_niveau = 1;
+            }
+            else
+            {
+            degat = degat || (case_change_etat(valeur_case));
+            }
             grille[etat_joueur->y - i][etat_joueur->x + j] = 90;
         }
     }
@@ -322,7 +307,7 @@ int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 
 int case_change_etat(int valeur_case)
 {
-    return (valeur_case > 19); // tout ce qui n'est pas de la dirt
+    return (valeur_case > 19 && valeur_case <= 30); // tout ce qui n'est pas de la dirt
 }
 
 /*
