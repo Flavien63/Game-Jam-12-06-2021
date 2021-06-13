@@ -245,16 +245,18 @@ int main()
     ajout_pic_vie(mat1, 180, 20);
     ajout_pic_vie(mat1, 180, 25);
     ajout_pic_vie(mat1, 180, 30);
+    ajout_pic_vie(mat1, 180, 35);
 
     ajout_pic_mort(mat2, 180, 20);
     ajout_pic_mort(mat2, 180, 25);
     ajout_pic_mort(mat2, 180, 30);
+    ajout_pic_mort(mat2, 180, 35);
 
-    ajout_plateforme_mort(mat2, 160, 50, 15);
-    ajout_plateforme_mort(mat2, 140, 85, 15);
-    ajout_plateforme_mort(mat2, 120, 115, 15);
-    ajout_plateforme_mort(mat2, 100, 145, 15);
-    ajout_plateforme_mort(mat2, 80, 175, 15);
+    ajout_plateforme_mort(mat2, 160, 55, 15);
+    ajout_plateforme_mort(mat2, 140, 90, 15);
+    ajout_plateforme_mort(mat2, 120, 120, 15);
+    ajout_plateforme_mort(mat2, 100, 150, 15);
+    ajout_plateforme_mort(mat2, 80, 180, 15);
     
     ajout_coupe(mat1, 55, 280);
     ajout_bulle(mat2, 55, 260);
