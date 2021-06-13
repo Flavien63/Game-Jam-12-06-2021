@@ -232,7 +232,7 @@ int main()
         for (j=0; j<300; j++)
         {
             mat1[i][j] = 0;
-            mat2[i][j] = 75;
+            mat2[i][j] = 0;
         }
     }
 
