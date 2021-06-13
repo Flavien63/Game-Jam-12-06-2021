@@ -232,13 +232,13 @@ void ajout_plateforme_mort(int mat[200][300], int pos_x, int pos_y, int longueur
     }
 }
 
-void mat_to_file(int mat[200][300], const char * file)
+void mat_to_file(int mat[200][300], const char * file, pos_x, pos_y)
 {
     FILE * level1_a = fopen(file, "w");
 
     if (level1_a)
     {
-        fprintf(level1_a, "20 180\n");
+        fprintf(level1_a, "%d %d\n", pos_x, pos_y);
 
         for (int i=0;i<200;i++)
         {
@@ -303,8 +303,8 @@ int main()
     ajout_caillou(mat1, 135, 240);
     ajout_caillou(mat1, 185, 290);
 
-    mat_to_file(mat1, "level1_alive.txt");
-    mat_to_file(mat2, "level1_death.txt");
+    mat_to_file(mat1, "level1_alive.txt", 50, 179);
+    mat_to_file(mat2, "level1_death.txt", 50, 179);
 
     return 0;
 }
