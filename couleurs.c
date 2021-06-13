@@ -17,7 +17,9 @@ void  tableau_vivant(int tab[100][3])
 	/*marron_fonce_*/
 	tab[5][0]=115;tab[5][1]=61;tab[5][2]=61;
 	/*_noir_*/
-	tab[6][0]=0;tab[75][1]=0;tab[75][2]=0;
+	tab[6][0]=0;tab[6][1]=0;tab[6][2]=0;
+	/*rouge*/
+	tab[7][0]=255;tab[7][1]=0;tab[7][2]=0;
 	
 	/*obstacle*/
 	/*_pointe-acier_*/
