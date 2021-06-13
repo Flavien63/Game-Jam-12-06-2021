@@ -137,7 +137,7 @@ char* numniv(int n)
 {
     char *nom = malloc(9 * sizeof(char));
     nom[0] = '\0';
-    strcat(nom, "niveau");
+    strcat(nom, "Niveau");
     char nb[3] = "";
     sprintf(nb, "%d", n);
     strcat(nom, nb);
