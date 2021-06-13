@@ -388,6 +388,6 @@ int main()
     mat_to_file(mat1, "level1_alive.txt", 50, 179);
     mat_to_file(mat1bis, "level1_death.txt", 50, 179);
     mat_to_file(mat2, "level2_alive.txt", 20, 149);
-    mat_to_file(mat2bis, "level1_death.txt",50,179);
+    mat_to_file(mat2bis, "level2_death.txt",50,179);
     return 0;
 }
