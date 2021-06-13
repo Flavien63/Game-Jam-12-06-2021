@@ -149,13 +149,16 @@ int main()
             flag = 0;
         }
     }
-    niveau(renderer, taille, numniv(1));
-    SDL_RenderPresent(renderer);
-    SDL_Delay(2000);
-    import_file(grille, "level1_alive.txt", 1, etat_perso);
-    placement_perso(grille, etat_perso);
-    dessingrille(grille, renderer, couleurs_vie, taille);
-    SDL_RenderPresent(renderer);
+    if (running)
+    {
+        niveau(renderer, taille, numniv(1));
+        SDL_RenderPresent(renderer);
+        SDL_Delay(1000);
+        import_file(grille, "level1_alive.txt", 1, etat_perso);
+        placement_perso(grille, etat_perso);
+        dessingrille(grille, renderer, couleurs_vie, taille);
+        SDL_RenderPresent(renderer);
+    }
     int dephorizon = 0;
     int depvertical = 0;
     int bouge; //bouge 0 : rien, bouge 1 : actualiser
@@ -257,7 +260,7 @@ int main()
             else
             {
                 running = 0;
-                niveau(renderer, taille, "bravo ! C'est fini");
+                niveau(renderer, taille, "Bravo ! C'est fini");
                 SDL_RenderPresent(renderer);
                 SDL_Delay(2000);
             }
