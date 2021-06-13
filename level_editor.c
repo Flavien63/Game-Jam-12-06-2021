@@ -187,6 +187,51 @@ void ajout_pic_mort(int mat[200][300], int pos_x, int pos_y)
     }
 }
 
+void ajout_plateforme_vie(int mat[200][300], int pos_x, int pos_y, int longueur)
+{
+    if ((pos_x >= 0) && (pos_x < 198) && (pos_y >= 0) && (pos_y < 300))
+    {
+        for (int i = pos_x; i < pos_x + 7; i++)
+        {
+            for (int j = pos_y; j < pos_y + longueur; j++)
+            {
+                if (i == pos_x)
+                    mat[i][j] = 5;
+                else
+                {
+                    if ((i == pos_x + 1) && (j != pos_y) && (j != pos_y + longueur - 1))
+                        mat[i][j] = 1;
+                    else
+                    {
+                        if ((i == pos_x + 2) && (j>= pos_y + 1) && (j <= pos_y + longueur -2))
+                            mat[i][j] = 5;
+                        else
+                        {
+                            if ((i == pos_x + 3) && (j>= pos_y + 3) && (j <= pos_y + longueur - 4))
+                                mat[i][j] = 2;
+                            else
+                            {
+                                if ((i == pos_x + 4) && ((j == pos_y + 2) || (j == pos_y + (longueur/2) - 1) || (j == pos_y + (longueur/2) + 1) || (j == pos_y + longueur - 3)))
+                                    mat[i][j] = 2;
+                                else
+                                {
+                                    if ((i == pos_x + 5) &&((j == pos_y + 3) || (j == pos_y + (longueur / 2) - 2) || (j == pos_y + (longueur / 2) + 2) || (j == pos_y + longueur - 4) || (j == pos_y + (longueur/2))))
+                                        mat[i][j] = 2;
+                                    else
+                                    {
+                                        if ((i == pos_x + 6) && ((j == pos_y + (longueur / 2) - 3) || (j == pos_y + (longueur / 2) + 3) || (j == pos_y + (longueur/2))))
+                                            mat[i][j] = 2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 void ajout_plateforme_mort(int mat[200][300], int pos_x, int pos_y, int longueur)
 {
     if ((pos_x >= 0) && (pos_x < 198) && (pos_y >= 0) && (pos_y < 300))
@@ -291,6 +336,8 @@ int main()
     int mat1bis[200][300];
     int mat2[200][300];
     int mat2bis[200][300];
+    int mat3[200][300];
+    int mat3bis[200][300];
 
     for (i=0;i<200;i++)
     {
@@ -383,11 +430,77 @@ int main()
 
     ajout_cadre_noir(mat2bis);
     
-   
+    /****Niveau 3 vivant****/
+    ajout_sol_vie(mat3, 180, 0, 199, 49);
+    ajout_sol_vie(mat3, 150, 220, 199, 259);
+    ajout_sol_vie(mat3, 180, 260, 199, 279);
+    ajout_sol_vie(mat3, 110, 210, 129, 249);
+    ajout_sol_vie(mat3, 40, 0, 59, 49);
+
+    for (int i = 0; i < 34; i++)
+    {
+        ajout_pic_vie(mat3, 191, 50 + i * 5);
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        ajout_pic_vie(mat3, 110, 220 + i * 5);
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        ajout_pic_vie(mat3, 191, 280 + i * 5);
+    }
+
+    ajout_plateforme_vie(mat3, 160, 280, 15);
+    ajout_plateforme_vie(mat3, 120, 280, 15);
+
+    ajout_coupe(mat3, 25, 5);
+
+    ajout_cadre_noir(mat3);
+
+    /****Niveau 3 mort****/
+    ajout_sol_mort(mat3bis, 180, 0, 199, 49);
+    ajout_sol_mort(mat3bis, 150, 220, 199, 259);
+    ajout_sol_mort(mat3bis, 180, 260, 199, 279);
+    ajout_sol_mort(mat3bis, 110, 210, 129, 249);
+    ajout_sol_mort(mat3bis, 40, 0, 59, 49);
+
+    for (int i = 0; i < 34; i++)
+    {
+        ajout_pic_mort(mat3bis, 180, 50 + i * 5);
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        ajout_pic_mort(mat3bis, 110, 220 + i * 5);
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        ajout_pic_mort(mat3bis, 191, 280 + i * 5);
+    }
+
+    ajout_bulle(mat3bis, 135, 230);
+    ajout_bulle(mat3bis, 25, 25);
+
+    ajout_plateforme_mort(mat3bis, 160, 190, 15);
+
+
+    ajout_plateforme_mort(mat3bis, 90, 205, 15);
+    ajout_plateforme_mort(mat3bis, 60, 175, 15);
+    ajout_plateforme_mort(mat3bis, 90, 145, 15);
+    ajout_plateforme_mort(mat3bis, 60, 115, 15);
+    ajout_plateforme_mort(mat3bis, 50, 75, 15);
+
+    ajout_cadre_noir(mat3bis);
 
     mat_to_file(mat1, "level1_alive.txt", 50, 179);
     mat_to_file(mat1bis, "level1_death.txt", 50, 179);
     mat_to_file(mat2, "level2_alive.txt", 20, 149);
     mat_to_file(mat2bis, "level2_death.txt",50,179);
+    mat_to_file(mat3, "level3_alive.txt", 20, 179);
+    mat_to_file(mat3bis, "level3_death.txt", 20, 179);
+
     return 0;
 }
