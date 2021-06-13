@@ -56,3 +56,46 @@ char *nomniveau(int n, int vm)
         strcat(nom, "_alive.txt");
     return nom;
 }
+
+void menu(SDL_Renderer *renderer,int taille)
+//taille=0 : 900*600 taille=1 : 1200*800 taille=2 : 1500*1000
+{
+    if (TTF_Init() != 0)
+    {
+        fprintf(stderr, "Erreur d'initialisation TTF : %s\n", TTF_GetError());
+    }
+    SDL_Rect rect;
+    int lx=900+300*taille;
+    int ly=600+200*taille;
+    TTF_Font *font1;
+    font1 = TTF_OpenFont("arial.ttf", 100);
+    int iW, iH;
+    SDL_Color couleur = {0, 255, 255, 255};
+    
+    SDL_Surface *surf = TTF_RenderText_Blended(font1, "Changer la resolution", couleur);
+    SDL_Texture *texttext = SDL_CreateTextureFromSurface(renderer, surf);
+    SDL_QueryTexture(texttext, NULL, NULL, &iW, &iH);
+    rect.x = lx/4;
+    rect.y = ly/6;
+    rect.w = lx/2;
+    rect.h = ly/6;
+    SDL_RenderCopy(renderer, texttext, NULL, &rect);
+    
+    surf=TTF_RenderText_Blended(font1, "Jouer", couleur);
+    texttext = SDL_CreateTextureFromSurface(renderer, surf);
+    SDL_QueryTexture(texttext, NULL, NULL, &iW, &iH);
+    rect.x = lx/4;
+    rect.y = 5*ly/12;
+    rect.w = lx/2;
+    rect.h = ly/5;
+    SDL_RenderCopy(renderer, texttext, NULL, &rect);
+    
+    surf=TTF_RenderText_Blended(font1, "Quitter", couleur);
+    texttext = SDL_CreateTextureFromSurface(renderer, surf);
+    SDL_QueryTexture(texttext, NULL, NULL, &iW, &iH);
+    rect.x = lx/4;
+    rect.y = 8*ly/12;
+    rect.w = lx/2;
+    rect.h = ly/5;
+    SDL_RenderCopy(renderer, texttext, NULL, &rect);
+}
