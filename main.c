@@ -43,7 +43,7 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
     }
     SDL_Event event;
-    menu(renderer, taille);
+    menu(renderer, taille, couleurs_vie, grille, etat_perso);
     SDL_RenderPresent(renderer);
     int play = 1; //vaut 1 tant qu'on a pas clique sur le bouton play
     int running = 1;
@@ -76,7 +76,7 @@ int main()
                         taille = (taille + 1) % 3;
                         width = 900 + 300 * taille;
                         height = 600 + 200 * taille;
-                        menu(renderer, taille);
+                        menu(renderer, taille, couleurs_vie, grille, etat_perso);
                         SDL_SetWindowSize(window, width, height);
                         SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
                         flag = 1;

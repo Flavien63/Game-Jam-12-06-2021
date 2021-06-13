@@ -57,9 +57,11 @@ char *nomniveau(int n, int vm)
     return nom;
 }
 
-void menu(SDL_Renderer *renderer,int taille)
+void menu(SDL_Renderer *renderer,int taille, int couleurs_vie[100][3], int grille[200][300], etat_perso_t * etat)
 //taille=0 : 900*600 taille=1 : 1200*800 taille=2 : 1500*1000
 {
+    import_file(grille, "menu.txt", 0, etat);
+    dessingrille(grille, renderer, couleurs_vie, taille);
     if (TTF_Init() != 0)
     {
         fprintf(stderr, "Erreur d'initialisation TTF : %s\n", TTF_GetError());
