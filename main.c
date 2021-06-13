@@ -115,7 +115,7 @@ int main()
     {
         niveau(renderer, taille, numniv(1));
         SDL_RenderPresent(renderer);
-        SDL_Delay(2000);
+        SDL_Delay(1000);
         import_file(grille, "level1_alive.txt", 1, etat_perso);
         placement_perso(grille, etat_perso);
         dessingrille(grille, renderer, couleurs_vie, taille);
@@ -202,7 +202,7 @@ int main()
             {
                 niveau(renderer, taille, numniv(n));
                 SDL_RenderPresent(renderer);
-                SDL_Delay(2000);
+                SDL_Delay(1000);
                 vm = 0;
                 nomfichier = nomniveau(n, vm);
                 import_file(grille, nomfichier, 1, etat_perso);
@@ -215,7 +215,7 @@ int main()
                 running = 0;
                 niveau(renderer, taille, "Bravo ! C'est fini");
                 SDL_RenderPresent(renderer);
-                SDL_Delay(2000);
+                SDL_Delay(1000);
             }
         }
         if (flag == 1)
