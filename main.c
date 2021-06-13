@@ -168,6 +168,7 @@ int main()
         if (c>600)
         {
             flag=1;
+            c=0;
         }
         if (etat_perso->mort != vm)
         {
