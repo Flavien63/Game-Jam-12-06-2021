@@ -118,6 +118,7 @@ int main()
     int vm = 0;
     char *nomfichier;
     int n = 1;
+    int c=0;
 
     while (running)
     {
@@ -160,9 +161,14 @@ int main()
         {
             depvertical = 1;
         }
+        c=c+1;
         bouge = deplacement_perso(depvertical, dephorizon, grille, etat_perso);
         depvertical = 0;
         dephorizon = 0;
+        if (c>600)
+        {
+            flag=1;
+        }
         if (etat_perso->mort != vm)
         {
             vm = etat_perso->mort;
