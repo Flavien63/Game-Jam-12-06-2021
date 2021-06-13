@@ -87,19 +87,19 @@ void ajout_coupe(int mat[200][300], int pos_x, int pos_y)
             for (int j = pos_y; j < pos_y + 14; j++)
             {
                 if ((i == pos_x) && (j <= pos_y + 12) && (j >= pos_y + 2))
-                    mat[i][j] = 30;
+                    mat[i][j] = 32;
                 if ((i == pos_x + 1) && (j <= pos_y + 13) && (j >= pos_y + 1))
-                    mat[i][j] = 30;
+                    mat[i][j] = 32;
                 if (((i == pos_x + 2) || (i == pos_x + 3)) && ((j == pos_y) || (j == pos_y + 13) || ((j <= pos_y + 10) && (j >= pos_y + 3))))
-                    mat[i][j] = 30;
+                    mat[i][j] = 32;
                 if ((i == pos_x + 4) && ((j == pos_y + 1) || ((j <= pos_y + 9) && (j >= pos_y + 4)) || (j == pos_y + 12)))
-                    mat[i][j] = 30;
+                    mat[i][j] = 32;
                 if ((i == pos_x + 5) && ((j == pos_y + 2) || ((j <= pos_y + 8) && (j >= pos_y + 5)) || (j == pos_y + 11) || (j == pos_y + 10) || (j == pos_y + 3)))
-                    mat[i][j] = 30;
+                    mat[i][j] = 32;
                 if (((i >= pos_x + 6) && (i <= pos_x + 9)) && ((j == pos_y + 6) || (j == pos_y + 7)))
-                    mat[i][j] = 30;
+                    mat[i][j] = 32;
                 if (((i >= pos_x + 10) && (i <= pos_x + 13)) && ((j >= pos_y + 4) && (j <= pos_y + 9)))
-                    mat[i][j] = 30;
+                    mat[i][j] = 32;
             }
         }
     }
