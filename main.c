@@ -22,6 +22,7 @@ int main()
     SDL_Window *window;
     int width = 900;
     int height = 600;
+    int taille=0;
 
     window = SDL_CreateWindow("SDL2 Programme 0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               width, height,
@@ -32,6 +33,7 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
         /* on peut aussi utiliser SDL_Log() */
     }
+    SDL_SetWindowTitle (window, "Des morts et des bulles");
     SDL_Renderer *renderer;
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED); /*  SDL_RENDERER_SOFTWARE */
@@ -39,17 +41,80 @@ int main()
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
     }
+    SDL_Event event;
+    menu(renderer,taille);
+    SDL_RenderPresent(renderer);
+    int play=1; //vaut 1 tant qu'on a pas clique sur le bouton play
+    int running = 1;
+    int px,py;
+    int flag; //si flag=1, redessiner, sinon rien
+    while ((running) && (play))
+    {
+        while (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+            case SDL_WINDOWEVENT:
+                switch (event.window.event)
+                {
+                case SDL_WINDOWEVENT_CLOSE:
+                    play = 0;
+                    break;
+                case SDL_WINDOWEVENT_EXPOSED:
+                    flag = 1;
+                    break;
+                }
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                px=event.button.x;
+                py=event.button.y;
+                if ((px<3*width/4) && (px>width/4))
+                {
+                    if ((py>height/6) && (py<2*height/6))
+                    {
+                        taille=(taille+1)%3;
+                        width=900+300*taille;
+                        height=600+200*taille;
+                        menu(renderer,taille);
+                        SDL_SetWindowSize(window , width , height);
+                        flag=1;
+                    }
+                    else
+                    {
+                        if ((py>5*height/12) && (py<7*height/12))
+                        {
+                            play=0;
+                        }
+                        else
+                        {
+                            if ((py>4*height/6) && (py<5*height/6))
+                            {
+                                running=0;
+                            }
+                        }
+                    }
+                }
+                break;
+            case SDL_QUIT:
+                running = 0;
+                break;
+            }
+            break;
+        }
+        if (flag)
+        {
+            SDL_RenderPresent(renderer);
+            flag=0;
+        }
+    }
     import_file(grille, "level1_alive.txt",1,etat_perso);
     placement_perso(grille, etat_perso);
     dessingrille(grille, renderer, couleurs_vie);
     SDL_RenderPresent(renderer);
-    int running = 1;
-    SDL_Event event;
     int dephorizon = 0;
     int depvertical = 0;
     int bouge; //bouge 0 : rien, bouge 1 : actualiser
     int vm = 0;
-    int flag = 0; //flag 1: redessiner, flag 0 : rien
     char *nomfichier;
     int n = 1;
 
