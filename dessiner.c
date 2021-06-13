@@ -135,9 +135,9 @@ void niveau(SDL_Renderer *renderer,int taille,char* mot)
 
 char* numniv(int n)
 {
-    char *nom = malloc(9 * sizeof(char));
+    char *nom = malloc(10 * sizeof(char));
     nom[0] = '\0';
-    strcat(nom, "Niveau");
+    strcat(nom, "Niveau ");
     char nb[3] = "";
     sprintf(nb, "%d", n);
     strcat(nom, nb);
