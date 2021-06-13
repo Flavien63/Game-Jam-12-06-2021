@@ -27,6 +27,9 @@ void  tableau_vivant(int tab[100][3])
 	/*_pointe-bois_*/
 	tab[21][0]=119;tab[21][1]=70;tab[21][2]=52;
 	
+	/*_bulle_*/
+	tab[30][0]=255;tab[30][1]=255;tab[30][2]=255;
+	
 	 /*nuage*/
 	 tab[31][0]=240;tab[31][1]=240;tab[31][2]=240;
 
