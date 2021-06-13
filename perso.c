@@ -285,6 +285,7 @@ int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int degat = 0;
     int i, j;
+    int x, y;
     int valeur_case;
     for (i = 0; i < HAUTEUR_PERSO; i++)
     {
@@ -297,12 +298,46 @@ int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
             }
             else
             {
-            degat = degat || (case_change_etat(valeur_case));
+                degat = degat || (case_change_etat(valeur_case));
             }
-            grille[etat_joueur->y - i][etat_joueur->x + j] = 90;
+            y = etat_joueur->y - i;
+            x = etat_joueur->x + j;
+            grille[y][x] = dessine_perso(i, j);
         }
     }
     return degat;
+}
+
+int dessine_perso(int i, int j)
+{
+    int partie_perso;
+    if (j >= 2 && j <= 3)
+    {
+        if (i >= 0 && i <= 2)
+        {
+            partie_perso = 91; //jambes
+        }
+        else if (j >= 4 && j <= 7)
+        {
+            partie_perso = 93; //t-shirt
+        }
+        else if (j >= 8 && j <= 9)
+        {
+            partie_perso = 94; //tete
+        }
+    }
+    else if (j == 0 || j == 4)
+    {
+        if (i >= 4 && i <= 7)
+        {
+            partie_perso = 92; //bras
+        }
+    }
+    else
+    {
+        partie_perso = 90;
+    }
+    return partie_perso;
 }
 
 int case_change_etat(int valeur_case)

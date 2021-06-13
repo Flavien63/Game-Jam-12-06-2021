@@ -12,9 +12,8 @@
 #define ACCELERATION_MAX 5
 #define GRAVITE 2
 #define DEPLACEMENT_COTE 1
-#define HAUTEUR_SAUT 15
+#define HAUTEUR_SAUT 20
 #define SAUT 2
-#define TEMPS_ENTRE_SAUT 10
 
 typedef struct etat_perso
 {
@@ -45,7 +44,10 @@ int mort(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur);
 
 void effacement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
 int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *);
+int dessine_perso(int i, int j);
 
 int case_change_etat(int valeur_case);
+
+
 
 #endif
