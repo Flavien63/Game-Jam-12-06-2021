@@ -15,7 +15,7 @@ void ajout_bouton(int mat[200][300], int pos_x_deb, int pos_y_deb, int pos_x_fin
                 mat[i][j] = 7;
             }
         }
-        for (int i = pos_x_deb; i <= pos_y_fin; i ++)
+        for (int i = pos_x_deb; i <= pos_x_fin; i ++)
         {
             for (int j = pos_y_deb; j <= pos_y_fin; j ++)
             {
@@ -371,14 +371,20 @@ int main()
             mat1bis[i][j] = 0;
             mat2[i][j] = 0;
             mat2bis[i][j] = 0;
+            mat3[i][j] = 0;
+            mat3bis[i][j] = 0;
         }
     }
 
     /****Menu****/
     ajout_sol_vie(mat0, 180, 0, 199, 299);
-    ajout_bouton(mat0, 75, 33, 225, 66);
-    ajout_bouton(mat0, 75, 82, 225, 115);
-    ajout_bouton(mat0, 75, 131, 225, 164);
+
+    ajout_nuage(mat0, 20, 37);
+    ajout_nuage(mat0, 264, 37);
+
+    ajout_bouton(mat0, 35, 75, 70, 225);
+    ajout_bouton(mat0, 85, 75, 120, 225);
+    ajout_bouton(mat0, 135, 75, 170, 225);
     
     /****Niveau 1 vivant****/
     ajout_sol_vie(mat1, 70, 230, 199, 299);
