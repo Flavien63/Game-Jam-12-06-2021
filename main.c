@@ -20,6 +20,46 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
         return EXIT_FAILURE;
     }
+       // Initialisation de SDL_Mixer
+    if (Mix_OpenAudio(96000, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) < 0)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur initialisation SDL_mixer : %s", Mix_GetError());
+        SDL_Quit();
+        return -1; 
+    }   
+
+    Mix_Music* music = Mix_LoadMUS("musique-dascenseur.mp3"); // Charge notre musique
+
+    if (music == NULL)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur chargement de la musique : %s", Mix_GetError());
+        Mix_CloseAudio();
+        SDL_Quit();
+        return -1; 
+    }   
+    
+    Mix_Music* music_vie = Mix_LoadMUS("vie.mp3"); // Charge notre musique
+
+    if (music == NULL)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur chargement de la musique : %s", Mix_GetError());
+        Mix_CloseAudio();
+        SDL_Quit();
+        return -1; 
+    }   
+   
+    Mix_Music* music_mort = Mix_LoadMUS("mort.mp3"); // Charge notre musique
+
+    if (music == NULL)
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Erreur chargement de la musique : %s", Mix_GetError());
+        Mix_CloseAudio();
+        SDL_Quit();
+        return -1;
+    }
+    Mix_PlayMusic(music, -1); // Joue notre musique   
+
+
     SDL_Window *window;
     int width = 900;
     int height = 600;
@@ -122,8 +162,10 @@ int main()
     int vm = 0;
     char *nomfichier;
     int n = 1;
-    int c = 0;
-
+    int c = 0; 
+    Mix_HaltMusic();
+    Mix_PlayMusic(music_vie, -1);
+    
     while (running)
     {
         while (SDL_PollEvent(&event))
@@ -176,6 +218,13 @@ int main()
         }
         if (etat_perso->mort != vm)
         {
+            Mix_RewindMusic();
+            Mix_HaltMusic();
+            if (etat_perso->mort)
+               Mix_PlayMusic(music_mort, -1);
+            else
+               Mix_PlayMusic(music_vie, -1);
+
             vm = etat_perso->mort;
             nomfichier = nomniveau(n, vm);
             import_file(grille, nomfichier, 0, etat_perso);
