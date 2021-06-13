@@ -10,7 +10,7 @@ int main()
     etat_perso->y = 0;
     etat_perso->saut = 0;
     etat_perso->mort = 0;
-    etat_perso->fin_niveau=0;
+    etat_perso->fin_niveau = 0;
     int couleurs_vie[100][3];
     tableau_vivant(couleurs_vie);
     int couleurs_mort[100][3];
@@ -23,7 +23,7 @@ int main()
     SDL_Window *window;
     int width = 900;
     int height = 600;
-    int taille=0;
+    int taille = 0;
 
     window = SDL_CreateWindow("SDL2 Programme 0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               width, height,
@@ -34,7 +34,7 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
         /* on peut aussi utiliser SDL_Log() */
     }
-    SDL_SetWindowTitle (window, "Des morts et des bulles");
+    SDL_SetWindowTitle(window, "Des morts et des bulles");
     SDL_Renderer *renderer;
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED); /*  SDL_RENDERER_SOFTWARE */
@@ -43,11 +43,11 @@ int main()
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
     }
     SDL_Event event;
-    menu(renderer,taille);
+    menu(renderer, taille);
     SDL_RenderPresent(renderer);
-    int play=1; //vaut 1 tant qu'on a pas clique sur le bouton play
+    int play = 1; //vaut 1 tant qu'on a pas clique sur le bouton play
     int running = 1;
-    int px,py;
+    int px, py;
     int flag; //si flag=1, redessiner, sinon rien
     while ((running) && (play))
     {
@@ -67,30 +67,31 @@ int main()
                 }
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                px=event.button.x;
-                py=event.button.y;
-                if ((px<3*width/4) && (px>width/4))
+                px = event.button.x;
+                py = event.button.y;
+                if ((px < 3 * width / 4) && (px > width / 4))
                 {
-                    if ((py>height/6) && (py<2*height/6))
+                    if ((py > height / 6) && (py < 2 * height / 6))
                     {
-                        taille=(taille+1)%3;
-                        width=900+300*taille;
-                        height=600+200*taille;
-                        menu(renderer,taille);
-                        SDL_SetWindowSize(window , width , height);
-                        flag=1;
+                        taille = (taille + 1) % 3;
+                        width = 900 + 300 * taille;
+                        height = 600 + 200 * taille;
+                        menu(renderer, taille);
+                        SDL_SetWindowSize(window, width, height);
+                        SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+                        flag = 1;
                     }
                     else
                     {
-                        if ((py>5*height/12) && (py<7*height/12))
+                        if ((py > 5 * height / 12) && (py < 7 * height / 12))
                         {
-                            play=0;
+                            play = 0;
                         }
                         else
                         {
-                            if ((py>4*height/6) && (py<5*height/6))
+                            if ((py > 4 * height / 6) && (py < 5 * height / 6))
                             {
-                                running=0;
+                                running = 0;
                             }
                         }
                     }
@@ -105,12 +106,15 @@ int main()
         if (flag)
         {
             SDL_RenderPresent(renderer);
-            flag=0;
+            flag = 0;
         }
     }
-    import_file(grille, "level1_alive.txt",1,etat_perso);
+    niveau(renderer, taille, numniv(1));
+    SDL_RenderPresent(renderer);
+    SDL_Delay(2000);
+    import_file(grille, "level1_alive.txt", 1, etat_perso);
     placement_perso(grille, etat_perso);
-    dessingrille(grille, renderer, couleurs_vie,taille);
+    dessingrille(grille, renderer, couleurs_vie, taille);
     SDL_RenderPresent(renderer);
     int dephorizon = 0;
     int depvertical = 0;
@@ -118,7 +122,7 @@ int main()
     int vm = 0;
     char *nomfichier;
     int n = 1;
-    int c=0;
+    int c = 0;
 
     while (running)
     {
@@ -161,49 +165,62 @@ int main()
         {
             depvertical = 1;
         }
-        c=c+1;
+        c = c + 1;
         bouge = deplacement_perso(depvertical, dephorizon, grille, etat_perso);
         depvertical = 0;
         dephorizon = 0;
-        if (c>600)
+        if (c > 600)
         {
-            flag=1;
-            c=0;
+            flag = 1;
+            c = 0;
         }
         if (etat_perso->mort != vm)
         {
             vm = etat_perso->mort;
             nomfichier = nomniveau(n, vm);
-            import_file(grille, nomfichier,0,etat_perso);
+            import_file(grille, nomfichier, 0, etat_perso);
             placement_perso(grille, etat_perso);
             flag = 1;
         }
         if (bouge == 1)
         {
             if (vm)
-                actualiserdessin(grille, etat_perso, renderer, couleurs_mort,taille);
+                actualiserdessin(grille, etat_perso, renderer, couleurs_mort, taille);
             else
-                actualiserdessin(grille, etat_perso, renderer, couleurs_vie,taille);
+                actualiserdessin(grille, etat_perso, renderer, couleurs_vie, taille);
             SDL_RenderPresent(renderer);
         }
-        if (etat_perso->fin_niveau==1)
+        if (etat_perso->fin_niveau == 1)
         {
-            n=n+1;
-            vm=0;
-            nomfichier=nomniveau(n,vm);
-            import_file(grille,nomfichier,1,etat_perso);
-            placement_perso(grille,etat_perso);
-            etat_perso->fin_niveau=0;
-            flag=1;
+            n = n + 1;
+            if (n <= NB_NIVEAU)
+            {
+                niveau(renderer, taille, numniv(n));
+                SDL_RenderPresent(renderer);
+                SDL_Delay(2000);
+                vm = 0;
+                nomfichier = nomniveau(n, vm);
+                import_file(grille, nomfichier, 1, etat_perso);
+                placement_perso(grille, etat_perso);
+                etat_perso->fin_niveau = 0;
+                flag = 1;
+            }
+            else
+            {
+                running = 0;
+                niveau(renderer, taille, "bravo ! C'est fini");
+                SDL_RenderPresent(renderer);
+                SDL_Delay(2000);
+            }
         }
         if (flag == 1)
         {
             if (vm)
-                dessingrille(grille, renderer, couleurs_mort,taille);
+                dessingrille(grille, renderer, couleurs_mort, taille);
             else
-                dessingrille(grille, renderer, couleurs_vie,taille);
+                dessingrille(grille, renderer, couleurs_vie, taille);
             SDL_RenderPresent(renderer);
-            flag=0;
+            flag = 0;
         }
 
         SDL_Delay(17);

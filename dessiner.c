@@ -98,4 +98,46 @@ void menu(SDL_Renderer *renderer,int taille)
     rect.w = lx/2;
     rect.h = ly/5;
     SDL_RenderCopy(renderer, texttext, NULL, &rect);
+
+    TTF_CloseFont(font1);
+}
+
+void niveau(SDL_Renderer *renderer,int taille,char* mot)
+{
+    if (TTF_Init() != 0)
+    {
+        fprintf(stderr, "Erreur d'initialisation TTF : %s\n", TTF_GetError());
+    }
+    SDL_Rect rect;
+    int lx=900+300*taille;
+    int ly=600+200*taille;
+    rect.x=0;
+    rect.y=0;
+    rect.w=lx;
+    rect.h=ly;
+    SDL_SetRenderDrawColor(renderer, 0,0,0, 255);
+    SDL_RenderFillRect(renderer, &rect);
+    TTF_Font *font1;
+    font1 = TTF_OpenFont("arial.ttf", 100);
+    int iW, iH;
+    SDL_Color couleur = {109, 7, 26, 255};
+    SDL_Surface *surf=TTF_RenderText_Blended(font1, mot, couleur);
+    SDL_Texture *texttext = SDL_CreateTextureFromSurface(renderer, surf);
+    SDL_QueryTexture(texttext, NULL, NULL, &iW, &iH);
+    rect.x = lx/4;
+    rect.y = ly/3;
+    rect.w = lx/2;
+    rect.h = ly/5;
+    SDL_RenderCopy(renderer, texttext, NULL, &rect);
+}
+
+char* numniv(int n)
+{
+    char *nom = malloc(9 * sizeof(char));
+    nom[0] = '\0';
+    strcat(nom, "niveau");
+    char nb[3] = "";
+    sprintf(nb, "%d", n);
+    strcat(nom, nb);
+    return nom;
 }

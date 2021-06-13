@@ -7,6 +7,8 @@
 #include "couleurs.h"
 #include "init_level.h"
 
+#define NB_NIVEAU 2
+
 int main();
 
 #endif
