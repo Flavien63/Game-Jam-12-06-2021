@@ -232,6 +232,35 @@ void ajout_plateforme_mort(int mat[200][300], int pos_x, int pos_y, int longueur
     }
 }
 
+void ajout_nuage(int mat[200][300],int  x,int y)
+{
+   if ((x>=0) && (x<286) && (y>=0) && (y<184))
+   {   
+   int i; int j=0;
+   for (i=8;i<12;i++)
+      mat[y+j][x+i]=31;
+   j++;
+   for (i=6;i<13;i++)
+      mat[y+j][x+i]=31;
+   j++;
+   for (i=4;i<14;i++)
+      mat[y+j][x+i]=31;
+   j++;
+   for (i=2;i<16;i++)
+      mat[y+j][x+i]=31;
+   j++;
+   for (i=1;i<17;i++)
+      mat[y+j][x+i]=31;
+   j++;
+   for (i=0;i<17;i++)
+      mat[y+j][x+i]=31;
+   j++;
+   for (i=1;i<16;i++)
+      mat[y+j][x+i]=31;
+   j++;
+   }   
+}
+
 void mat_to_file(int mat[200][300], const char * file, int pos_x, int pos_y)
 {
     FILE * level1_a = fopen(file, "w");
@@ -302,7 +331,12 @@ int main()
     ajout_caillou(mat1, 115, 280);
     ajout_caillou(mat1, 135, 240);
     ajout_caillou(mat1, 185, 290);
-
+    
+    ajout_nuage(mat1, 20,70);
+    ajout_nuage(mat1, 90,30);
+    ajout_nuage(mat1,150,80);
+    ajout_nuage(mat1,280,30);
+    
     mat_to_file(mat1, "level1_alive.txt", 50, 179);
     mat_to_file(mat2, "level1_death.txt", 50, 179);
 
