@@ -288,41 +288,30 @@ int main()
     int i,j;
 
     int mat1[200][300];
+    int mat1bis[200][300];
     int mat2[200][300];
+    int mat2bis[200][300];
 
     for (i=0;i<200;i++)
     {
         for (j=0; j<300; j++)
         {
             mat1[i][j] = 0;
+            mat1bis[i][j] = 0;
             mat2[i][j] = 0;
+            mat2bis[i][j] = 0;
         }
     }
 
     ajout_sol_vie(mat1, 70, 230, 199, 299);
     ajout_sol_vie(mat1, 180, 0, 199, 299);
 
-    ajout_sol_mort(mat2, 70, 230, 199, 299);
-    ajout_sol_mort(mat2, 180, 0, 199, 299);
-
     ajout_pic_vie(mat1, 180, 20);
     ajout_pic_vie(mat1, 180, 25);
     ajout_pic_vie(mat1, 180, 30);
     ajout_pic_vie(mat1, 180, 35);
 
-    ajout_pic_mort(mat2, 180, 20);
-    ajout_pic_mort(mat2, 180, 25);
-    ajout_pic_mort(mat2, 180, 30);
-    ajout_pic_mort(mat2, 180, 35);
-
-    ajout_plateforme_mort(mat2, 160, 55, 15);
-    ajout_plateforme_mort(mat2, 140, 90, 15);
-    ajout_plateforme_mort(mat2, 120, 120, 15);
-    ajout_plateforme_mort(mat2, 100, 150, 15);
-    ajout_plateforme_mort(mat2, 80, 180, 15);
-    
     ajout_coupe(mat1, 55, 280);
-    ajout_bulle(mat2, 55, 260);
 
     ajout_caillou(mat1, 85, 250);
     ajout_caillou(mat1, 190, 25);
@@ -331,14 +320,54 @@ int main()
     ajout_caillou(mat1, 115, 280);
     ajout_caillou(mat1, 135, 240);
     ajout_caillou(mat1, 185, 290);
-    
-    ajout_nuage(mat1, 20,70);
-    ajout_nuage(mat1, 90,30);
-    ajout_nuage(mat1,150,80);
-    ajout_nuage(mat1,280,30);
-    
+
+    ajout_cadre_noir(mat1);
+
+    ajout_sol_mort(mat1bis, 70, 230, 199, 299);
+    ajout_sol_mort(mat1bis, 180, 0, 199, 299);
+
+    ajout_pic_mort(mat1bis, 180, 20);
+    ajout_pic_mort(mat1bis, 180, 25);
+    ajout_pic_mort(mat1bis, 180, 30);
+    ajout_pic_mort(mat1bis, 180, 35);
+
+    ajout_plateforme_mort(mat1bis, 160, 55, 15);
+    ajout_plateforme_mort(mat1bis, 140, 90, 15);
+    ajout_plateforme_mort(mat1bis, 120, 120, 15);
+    ajout_plateforme_mort(mat1bis, 100, 150, 15);
+    ajout_plateforme_mort(mat1bis, 80, 180, 15);
+
+    ajout_bulle(mat1bis, 55, 260);
+
+    ajout_cadre_noir(mat1bis);
+
+    ajout_sol_mort(mat2bis, 150, 0, 199, 49);
+    ajout_sol_mort(mat2bis, 180, 50, 199, 269);
+    ajout_sol_mort(mat2bis, 150, 270, 199, 299);
+    ajout_sol_mort(mat2bis, 150, 90, 169, 269);
+
+    ajout_pic_mort(mat2bis, 142, 30);
+    ajout_pic_mort(mat2bis, 142, 35);
+    ajout_pic_mort(mat2bis, 142, 40);
+    ajout_pic_mort(mat2bis, 142, 45);
+
+    for (int i = 0; i < 44; i++)
+    {
+        ajout_pic_mort(mat2bis, 180, 50 + 5*i);
+    }
+
+    ajout_plateforme_mort(mat2bis, 170, 55, 15);
+
+    for (int i = 0; i < 5; i++)
+    {
+        ajout_bulle(mat2bis, 135, 110 + 40 * i);
+    }
+
+    ajout_cadre_noir(mat2bis);
+
     mat_to_file(mat1, "level1_alive.txt", 50, 179);
-    mat_to_file(mat2, "level1_death.txt", 50, 179);
+    mat_to_file(mat1bis, "level1_death.txt", 50, 179);
+    mat_to_file(mat2bis, "level2_death.txt", 20, 149);
 
     return 0;
 }
