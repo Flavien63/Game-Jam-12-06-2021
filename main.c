@@ -6,8 +6,8 @@ int main()
     int grille[200][300];
     etat_perso_t *etat_perso;
     etat_perso = malloc(sizeof(etat_perso_t));
-    etat_perso->x = 50;
-    etat_perso->y = 50;
+    etat_perso->x = 0;
+    etat_perso->y = 0;
     etat_perso->saut = 0;
     etat_perso->mort = 0;
     int couleurs_vie[100][3];
@@ -39,7 +39,7 @@ int main()
     {
         fprintf(stderr, "Erreur d'initialisation de la SDL : %s\n", SDL_GetError());
     }
-    import_file(grille, "level1_alive.txt");
+    import_file(grille, "level1_alive.txt",1,etat_perso);
     placement_perso(grille, etat_perso);
     dessingrille(grille, renderer, couleurs_vie);
     SDL_RenderPresent(renderer);
@@ -101,7 +101,7 @@ int main()
         {
             vm = etat_perso->mort;
             nomfichier = nomniveau(n, vm);
-            import_file(grille, nomfichier);
+            import_file(grille, nomfichier,0,etat_perso);
             placement_perso(grille, etat_perso);
             flag = 1;
         }
@@ -112,6 +112,13 @@ int main()
             else
                 actualiserdessin(grille, etat_perso, renderer, couleurs_vie);
             SDL_RenderPresent(renderer);
+        }
+        if (bouge==3)
+        {
+            n=n+1;
+            vm=0;
+            nomfichier=nomniveau(n,vm);
+            import_file(grille,nomfichier,1,etat_perso);
         }
         if (flag == 1)
         {
