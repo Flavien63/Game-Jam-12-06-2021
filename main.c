@@ -186,6 +186,7 @@ int main()
             nomfichier=nomniveau(n,vm);
             import_file(grille,nomfichier,1,etat_perso);
             etat_perso->fin_niveau=0;
+            flag=1;
         }
         if (flag == 1)
         {
