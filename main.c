@@ -274,6 +274,10 @@ int main()
 
         SDL_Delay(17);
     }
+    Mix_FreeMusic(music);
+    Mix_FreeMusic(music_vie);
+    Mix_FreeMusic(music_mort);
+    Mix_CloseAudio();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
