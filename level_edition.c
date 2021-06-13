@@ -151,7 +151,7 @@ void ajout_caillou(int mat[200][300], int pos_x, int pos_y)
     }
 }
 
-void faire_pic(int mat[200][300], int pos_x, int pos_y)
+void ajout_pic_vie(int mat[200][300], int pos_x, int pos_y)
 {
     if ((pos_x >= 0) && (pos_y>=0))
     {
@@ -169,6 +169,31 @@ void faire_pic(int mat[200][300], int pos_x, int pos_y)
                         mat[pos_x + i][pos_y + j] = 0;
                 }
             }
+        }
+    }
+}
+
+void ajout_pic_mort(int mat[200][300], int pos_x, int pos_y)
+{
+    if ((pos_x >= 0) && (pos_y>=0))
+    {
+        for (int i = 0; i< 8; i++)
+        {
+            for (int j = 0; j<5; j++)    
+                mat[pos_x + i][pos_y + j] = 0;
+        }
+    }
+}
+
+void ajout_plateforme_mort(int mat[200][300], int pos_x, int pos_y, int longueur)
+{
+    if ((pos_x >= 0) && (pos_x < 198) && (pos_y >= 0) && (pos_y < 300))
+    {
+        for (int j = pos_y; j < pos_y + longueur; j++)
+        {
+            mat[pos_x][j] = 5;
+            mat[pos_x + 1][j] = 1;
+            mat[pos_x + 2][j] = 5;
         }
     }
 }
@@ -217,9 +242,19 @@ int main()
     ajout_sol_mort(mat2, 70, 230, 199, 299);
     ajout_sol_mort(mat2, 180, 0, 199, 299);
 
-    faire_pic(mat1, 180, 20);
-    faire_pic(mat1, 180, 25);
-    faire_pic(mat1, 180, 30);
+    ajout_pic_vie(mat1, 180, 20);
+    ajout_pic_vie(mat1, 180, 25);
+    ajout_pic_vie(mat1, 180, 30);
+
+    ajout_pic_mort(mat2, 180, 20);
+    ajout_pic_mort(mat2, 180, 25);
+    ajout_pic_mort(mat2, 180, 30);
+
+    ajout_plateforme_mort(mat2, 160, 50, 10);
+    ajout_plateforme_mort(mat2, 140, 80, 10);
+    ajout_plateforme_mort(mat2, 120, 110, 10);
+    ajout_plateforme_mort(mat2, 100, 140, 10);
+    ajout_plateforme_mort(mat2, 80, 170, 10);
 
     ajout_caillou(mat1, 85, 250);
     ajout_caillou(mat1, 190, 25);
