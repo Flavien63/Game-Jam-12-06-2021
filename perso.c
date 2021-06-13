@@ -54,6 +54,7 @@ void affichage(int grille[LONGUEUR][LARGEUR])
 int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
     int bouge = 0;
+    effacement_perso(grille, etat_joueur);
 
     if (vertical == 1) //appuye sur la touche sauter
     {
@@ -68,19 +69,17 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
     /****** SAUT *******/
     if (etat_joueur->saut > 0) //saute
     {
-        if (horizontal == 0)
-        {
 
-            bouge += decalage_perso_haut(grille, etat_joueur);
-            if (bouge) //en train de sauter
-            {
-                etat_joueur->saut--;
-            }
-            else
-            { //bloque par obstacle, arret du saut
-                etat_joueur->saut = 0;
-            }
-        }/*
+        bouge = decalage_perso_haut(grille, etat_joueur) || bouge;
+        if (bouge) //en train de sauter
+        {
+            etat_joueur->saut--;
+        }
+        else
+        { //bloque par obstacle, arret du saut
+            etat_joueur->saut = 0;
+        }
+        /*
         else if (horizontal == 1)
         {
             decalage_perso_diagonale_haut(grille, etat_joueur, 1);
@@ -92,27 +91,32 @@ int deplacement_perso(int vertical, int horizontal, int grille[LONGUEUR][LARGEUR
     }
     else
     {
-        bouge += gravite(grille, etat_joueur);
-
-        /****** DEPLACEMENT GAUCHE - DROITE *******/
-        if (horizontal == -1) //deplacement gauche
-        {
-            bouge += decalage_perso_gauche(grille, etat_joueur);
-        }
-        else if (horizontal == 1) //deplacement droite
-        {
-            bouge += decalage_perso_droite(grille, etat_joueur);
-        }
-        if (mort(grille,etat_joueur))
-        {
-            //etat_joueur->saut = 0;
-            etat_joueur->mort = !etat_joueur->mort;
-            //effacement_perso(grille, etat_joueur);
-            //etat_joueur->y = etat_joueur->y - 1;
-            //placement_perso(grille, etat_joueur);
-            //printf("etat mort %d\n", etat_joueur->mort);
-        }
+        bouge = gravite(grille, etat_joueur) || bouge;
     }
+
+    /****** DEPLACEMENT GAUCHE - DROITE *******/
+    if (horizontal == -1) //deplacement gauche
+    {
+        bouge = decalage_perso_gauche(grille, etat_joueur) || bouge;
+    }
+    else if (horizontal == 1) //deplacement droite
+    {
+        bouge = decalage_perso_droite(grille, etat_joueur) || bouge;
+    }
+
+    bouge += placement_perso(grille, etat_joueur);
+
+    // if (mort(grille, etat_joueur))
+    if (bouge >= 2)
+    {
+        //etat_joueur->saut = 0;
+        etat_joueur->mort = !etat_joueur->mort;
+        //effacement_perso(grille, etat_joueur);
+        //etat_joueur->y = etat_joueur->y - 1;
+        //placement_perso(grille, etat_joueur);
+        //printf("etat mort %d\n", etat_joueur->mort);
+    }
+
     return bouge;
 }
 
@@ -156,9 +160,9 @@ int decalage_perso_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur
     int peut_sauter = rien_haut(grille, etat_joueur);
     if (peut_sauter && etat_joueur->y - 1 >= 0) //pas d'obstacle au dessus
     {
-        effacement_perso(grille, etat_joueur);
+        //effacement_perso(grille, etat_joueur);
         --etat_joueur->y;
-        peut_sauter += placement_perso(grille, etat_joueur);
+        //peut_sauter += placement_perso(grille, etat_joueur);
     }
     return peut_sauter;
 }
@@ -170,9 +174,9 @@ int decalage_perso_droite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joue
     if (succes)
     {
 
-        effacement_perso(grille, etat_joueur);
+        //effacement_perso(grille, etat_joueur);
         ++etat_joueur->x;
-        succes += placement_perso(grille, etat_joueur);
+        //succes += placement_perso(grille, etat_joueur);
     }
     return succes;
 }
@@ -183,9 +187,9 @@ int decalage_perso_gauche(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joue
     int succes = rien_gauche(grille, etat_joueur);
     if (succes)
     {
-        effacement_perso(grille, etat_joueur);
+        //effacement_perso(grille, etat_joueur);
         --etat_joueur->x;
-        succes += placement_perso(grille, etat_joueur);
+        //succes += placement_perso(grille, etat_joueur);
     }
     return succes;
 }
@@ -259,7 +263,6 @@ int mort(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
     return mort;
 }
 
-
 //Renvoie 1 si le perso a au moins un pied sur le sol, 0 sinon
 int touche_sol(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 {
@@ -282,9 +285,9 @@ int gravite(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
     if (!touche_sol(grille, etat_joueur) && (etat_joueur->y + GRAVITE < LARGEUR))
     {
         succes = 1;
-        effacement_perso(grille, etat_joueur);
+        //effacement_perso(grille, etat_joueur);
         etat_joueur->y = etat_joueur->y + GRAVITE;
-        succes += placement_perso(grille, etat_joueur);
+        //succes += placement_perso(grille, etat_joueur);
     }
     return succes;
 }
