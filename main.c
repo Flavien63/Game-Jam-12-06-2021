@@ -110,7 +110,7 @@ int main()
     }
     import_file(grille, "level1_alive.txt",1,etat_perso);
     placement_perso(grille, etat_perso);
-    dessingrille(grille, renderer, couleurs_vie);
+    dessingrille(grille, renderer, couleurs_vie,taille);
     SDL_RenderPresent(renderer);
     int dephorizon = 0;
     int depvertical = 0;
@@ -174,9 +174,9 @@ int main()
         if (bouge == 1)
         {
             if (vm)
-                actualiserdessin(grille, etat_perso, renderer, couleurs_mort);
+                actualiserdessin(grille, etat_perso, renderer, couleurs_mort,taille);
             else
-                actualiserdessin(grille, etat_perso, renderer, couleurs_vie);
+                actualiserdessin(grille, etat_perso, renderer, couleurs_vie,taille);
             SDL_RenderPresent(renderer);
         }
         if (etat_perso->fin_niveau==1)
@@ -190,9 +190,9 @@ int main()
         if (flag == 1)
         {
             if (vm)
-                dessingrille(grille, renderer, couleurs_mort);
+                dessingrille(grille, renderer, couleurs_mort,taille);
             else
-                dessingrille(grille, renderer, couleurs_vie);
+                dessingrille(grille, renderer, couleurs_vie,taille);
             SDL_RenderPresent(renderer);
             flag=0;
         }
