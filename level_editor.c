@@ -232,7 +232,7 @@ void ajout_plateforme_mort(int mat[200][300], int pos_x, int pos_y, int longueur
     }
 }
 
-void mat_to_file(int mat[200][300], const char * file, pos_x, pos_y)
+void mat_to_file(int mat[200][300], const char * file, int pos_x, int pos_y)
 {
     FILE * level1_a = fopen(file, "w");
 
