@@ -2,7 +2,7 @@ CC= gcc
 OPT  = -c -Wextra -Wall -g
 SDL2 = -lSDL2 -lSDL2_gfx -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2_net
 
-prog : main.o couleurs.o dessiner.o init_level.o perso.o
+prog : main.o couleurs.o dessiner.o init_level.o perso.o plateform.o
 	$(CC) main.o couleurs.o dessiner.o init_level.o perso.o plateform.o $(SDL2) -o prog 
 
 main.o : main.c main.h couleurs.o 

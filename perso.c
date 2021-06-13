@@ -211,7 +211,7 @@ int rien_haut(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
         air_dessus = air_dessus || ((dessus_tete_gauche == 0) && (dessus_tete_droite > 19));*/
         for (j = 0; j < LARGEUR_PERSO; j++)
         {
-            case_dessus_tete = ((grille[dessus_tete][etat_joueur->x + j] == 0) || (grille[dessus_tete][etat_joueur->x + j] > 19));
+            case_dessus_tete = ((grille[dessus_tete][etat_joueur->x + j] == 0) || (grille[dessus_tete][etat_joueur->x + j] > 19 && (grille[dessus_tete][etat_joueur->x + j]<40)));
             air_dessus = air_dessus && case_dessus_tete;
         }
     }
@@ -311,42 +311,32 @@ int placement_perso(int grille[LONGUEUR][LARGEUR], etat_perso_t *etat_joueur)
 int dessine_perso(int i, int j)
 {
     int partie_perso;
-    if (j >= 1 && j <= 2)
+    if (j >= 2 && j <= 3)
     {
         if (i >= 0 && i <= 2)
         {
             partie_perso = 91; //jambes
         }
-        else if (i >= 4 && i <= 7)
+        else if (j >= 4 && j <= 7)
         {
-            partie_perso = 94; //t-shirt
+            partie_perso = 93; //t-shirt
         }
-        else if (i == 8)
+        else if (j >= 8 && j <= 9)
         {
-            partie_perso = 91; //tete
-        }
-        else if (i == 9)
-        {
-            partie_perso = 93; //cheveux
-        }
-        else if (i == 3)
-        {
-            partie_perso = 92; //rouge
+            partie_perso = 94; //tete
         }
     }
-    else if (j == 3 || j == 0)
+    else if (j == 0 || j == 4)
     {
         if (i >= 4 && i <= 7)
         {
-            partie_perso = 91; //bras
+            partie_perso = 92; //bras
         }
     }
     else
     {
         partie_perso = 90;
     }
-	 if(j==0 && i==9)
-		partie_perso= 93;
     return partie_perso;
 }
 

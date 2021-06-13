@@ -6,6 +6,7 @@
 #include "dessiner.h"
 #include "couleurs.h"
 #include "init_level.h"
+#include "plateform.h"
 
 #define NB_NIVEAU 3
 

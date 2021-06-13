@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 
-#define LONGUEUR_PLATEFORM 20
-#define HAUTEUR_PLATEFORM 10
+#define LONGUEUR_PLATEFORM 15
+#define HAUTEUR_PLATEFORM 7
 
 
 typedef struct etat_plateform
@@ -27,7 +27,7 @@ int rien_gauche_plateform(int grille[LONGUEUR][LARGEUR], etat_plateform_t*, etat
 int decalage_plateform_droite(int grille[LONGUEUR][LARGEUR], etat_plateform_t*etat_plateform, etat_perso_t * etat_perso);
 int decalage_plateform_gauche(int grille[LONGUEUR][LARGEUR], etat_plateform_t*etat_plateform, etat_perso_t * etat_perso);
 
-int deplacement_plateform(int grille[LONGUEUR][LARGEUR], etat_plateform_t *etat_plateform, etat_perso_t *etat_joueur)
+int deplacement_plateform(int grille[LONGUEUR][LARGEUR], etat_plateform_t *etat_plateform, etat_perso_t *etat_joueur);
 etat_plateform_t * creation_plateform();
 
 

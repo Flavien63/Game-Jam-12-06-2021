@@ -5,6 +5,7 @@ int main()
     Uint8 *keystates;
     int grille[200][300];
     etat_perso_t *etat_perso;
+    etat_plateform_t *etat_plateform=creation_plateform();
     etat_perso = malloc(sizeof(etat_perso_t));
     etat_perso->x = 0;
     etat_perso->y = 0;
@@ -113,6 +114,7 @@ int main()
     SDL_RenderPresent(renderer);
     SDL_Delay(2000);
     import_file(grille, "level1_alive.txt", 1, etat_perso);
+    placement_plateform(grille,etat_plateform);
     placement_perso(grille, etat_perso);
     dessingrille(grille, renderer, couleurs_vie, taille);
     SDL_RenderPresent(renderer);
@@ -166,13 +168,13 @@ int main()
             depvertical = 1;
         }
         c = c + 1;
+        deplacement_plateform(grille,etat_plateform,etat_perso);
         bouge = deplacement_perso(depvertical, dephorizon, grille, etat_perso);
         depvertical = 0;
         dephorizon = 0;
-        if (c > 600)
+        if (c > 0)
         {
             flag = 1;
-            c = 0;
         }
         if (etat_perso->mort != vm)
         {

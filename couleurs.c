@@ -17,9 +17,7 @@ void  tableau_vivant(int tab[100][3])
 	/*marron_fonce_*/
 	tab[5][0]=115;tab[5][1]=61;tab[5][2]=61;
 	/*_noir_*/
-	tab[6][0]=0;tab[6][1]=0;tab[6][2]=0;
-	/*rouge*/
-	tab[7][0]=255;tab[7][1]=0;tab[7][2]=0;
+	tab[6][0]=0;tab[75][1]=0;tab[75][2]=0;
 	
 	/*obstacle*/
 	/*_pointe-acier_*/
@@ -33,20 +31,6 @@ void  tableau_vivant(int tab[100][3])
 	
 	/*trophee*/
 	tab[32][0]=251;tab[32][1]=255;tab[32][2]=0;
-	
-	/*perso*/
-	/*_ciel_*/
-	tab[90][0]=51; tab[90][1]=102; tab[90][2]=255; 
-	/*_peau_*/
-	tab[91][0]=200; tab[91][1]=173; tab[91][2]=127;
-	/*_slip_*/
-	tab[92][0]=255; tab[92][1]=0; tab[92][2]=0;
-	/*_cheveux_*/
-	tab[93][0]=226; tab[93][1]=188; tab[93][2]=116; 
-	/*_t-shirt_*/
-	tab[94][0]=0; tab[94][1]=0; tab[94][2]=255; 
-	
-	
 	
 }
 
@@ -81,17 +65,6 @@ void  tableau_mort(int tab[100][3])
 	/*_contour-de-la-bulle*/
 	tab[30][0]=255;tab[30][1]=255;tab[30][2]=255;
 	
-	/*perso*/
-	/*_ciel_*/
-	tab[90][0]=84; tab[90][1]=2; tab[90][2]=33; 
-	/*_peau_*/
-	tab[91][0]=200; tab[91][1]=173; tab[91][2]=127;
-	/*_slip_*/
-	tab[92][0]=255; tab[92][1]=0; tab[92][2]=0;
-	/*_cheveux_*/
-	tab[93][0]=226; tab[93][1]=188; tab[93][2]=116; 
-	/*_t-shirt_*/
-	tab[94][0]=0; tab[94][1]=0; tab[94][2]=255; 
 	
 	
 }

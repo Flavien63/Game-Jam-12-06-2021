@@ -6,7 +6,7 @@ int rien_cote_plateform(int droite, int grille[LONGUEUR][LARGEUR], etat_platefor
 {
     int air_cote = 0;
     int i = 0;
-    int indice_cote = etat_plateform->x + droite * LARGEUR_PLATEFORM + (1 - droite) * (-1);
+    int indice_cote = etat_plateform->x + droite * LONGUEUR_PLATEFORM + (1 - droite) * (-1);
 
     while (i < HAUTEUR_PLATEFORM && (air_cote == 0 || air_cote > 19))
     {
@@ -53,7 +53,7 @@ int decalage_plateform_droite(int grille[LONGUEUR][LARGEUR], etat_plateform_t *e
     int succes = rien_cote_plateform(1, grille, etat_plateform, etat_joueur);
     if (succes)
     {
-        etat_plateform->y += 1;
+        etat_plateform->x += 1;
     }
     return succes;
 }
@@ -63,7 +63,7 @@ int decalage_plateform_gauche(int grille[LONGUEUR][LARGEUR], etat_plateform_t *e
     int succes = rien_cote_plateform(1, grille, etat_plateform, etat_joueur);
     if (succes)
     {
-        etat_plateform->y -= 1;
+        etat_plateform->x -= 1;
     }
     return succes;
 }
@@ -78,7 +78,7 @@ int deplacement_plateform(int grille[LONGUEUR][LARGEUR], etat_plateform_t *etat_
     {
         etat_plateform->droite = 0;
     }
-    effacement_plateform(init_grille, etat_plateform);
+    effacement_plateform(grille, etat_plateform);
     if (etat_plateform->droite)
     {
         decalage_plateform_droite(grille, etat_plateform, etat_joueur);
@@ -95,14 +95,14 @@ int deplacement_plateform(int grille[LONGUEUR][LARGEUR], etat_plateform_t *etat_
 
 etat_plateform_t *creation_plateform()
 {
-    etat_plateform_t *plateform = malloc(sizeof(etat_plateform_t *));
+    etat_plateform_t *plateform = malloc(sizeof(etat_plateform_t ));
     plateform->x_d = 50;
-    plateform->y_d = 100;
+    plateform->y_d = 50;
     plateform->x_g = 150;
-    plateform->y_g = 100;
+    plateform->y_g = 50;
     plateform->droite = 0;
     plateform->x = 70;
-    plateform->y = 100;
+    plateform->y = 50;
     return plateform;
 }
 
@@ -115,7 +115,7 @@ void effacement_plateform(int grille[LONGUEUR][LARGEUR], etat_plateform_t *etat_
         for (j = 0; j < LONGUEUR_PLATEFORM; j++)
         {
             //      degat = degat || (case_change_etat(grille[etat_joueur->x + j][etat_joueur->y - i]));
-            grille[etat_plateform_t->x + j][etat_plateform_t->y - i] = 0;
+            grille[etat_plateform->y - i][etat_plateform->x + j] = 0;
         }
     }
     //return degat;
@@ -129,7 +129,7 @@ void placement_plateform(int grille[LONGUEUR][LARGEUR], etat_plateform_t *etat_p
         for (j = 0; j < LONGUEUR_PLATEFORM; j++)
         {
             // degat = degat || (case_change_etat(grille[etat_joueur->x + j][etat_joueur->y - i]));
-            grille[etat_plateform_t->x + j][etat_plateform_t->y - i] = 40;
+            grille[etat_plateform->y - i][etat_plateform->x + j] = 40;
         }
     }
     //return degat;
