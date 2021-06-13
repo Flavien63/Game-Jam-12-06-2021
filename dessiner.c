@@ -1,6 +1,6 @@
 #include "dessiner.h"
 
-void dessingrille(int grille[200][300], SDL_Renderer *renderer, int couleurs[100][3])
+void dessingrille(int grille[200][300], SDL_Renderer *renderer, int couleurs[100][3],int t)
 {
     SDL_Rect rect;
     int k, i, c;
@@ -10,16 +10,16 @@ void dessingrille(int grille[200][300], SDL_Renderer *renderer, int couleurs[100
         {
             c = grille[k][i];
             SDL_SetRenderDrawColor(renderer, couleurs[c][0], couleurs[c][1], couleurs[c][2], 255);
-            rect.x = 3 * i;
-            rect.y = 3 * k;
-            rect.w = 3;
-            rect.h = 3;
+            rect.x = (3+t) * i;
+            rect.y = (3+t) * k;
+            rect.w = (3+t);
+            rect.h = (3+t);
             SDL_RenderFillRect(renderer, &rect);
         }
     }
 }
 
-void actualiserdessin(int grille[200][300], etat_perso_t *etat, SDL_Renderer *renderer, int couleurs[100][3])
+void actualiserdessin(int grille[200][300], etat_perso_t *etat, SDL_Renderer *renderer, int couleurs[100][3],int t)
 {
     SDL_Rect rect;
     int k, i, c;
@@ -31,10 +31,10 @@ void actualiserdessin(int grille[200][300], etat_perso_t *etat, SDL_Renderer *re
             {
                 c = grille[i][k];
                 SDL_SetRenderDrawColor(renderer, couleurs[c][0], couleurs[c][1], couleurs[c][2], 255);
-                rect.x = 3 * k;
-                rect.y = 3 * i;
-                rect.w = 3;
-                rect.h = 3;
+                rect.x = (3+t) * k;
+                rect.y = (3+t) * i;
+                rect.w = (3+t);
+                rect.h = (3+t);
                 SDL_RenderFillRect(renderer, &rect);
             }
         }
