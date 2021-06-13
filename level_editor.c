@@ -197,6 +197,28 @@ void ajout_pic_vie(int mat[200][300], int pos_x, int pos_y)
     }
 }
 
+void ajout_pic_droite(int mat[200][300], int pos_x, int pos_y)
+{
+    if ((pos_x >= 0) && (pos_y>=0))
+    {
+        for (int i = 0; i< 5; i++)
+        {
+            for (int j = 0; j<4; j++)
+            {
+                if (((i==2) && (j == 0)) || (((i >= 1) && (i <= 3)) && ((j == 1) || (j == 2))))
+                    mat[pos_x + i][pos_y + j] = 20;
+                else
+                {
+                    if ((j == 3))
+                        mat[pos_x + i][pos_y + j] = 21;
+                    else 
+                        mat[pos_x + i][pos_y + j] = 0;
+                }
+            }
+        }
+    }
+}
+
 void ajout_pic_mort(int mat[200][300], int pos_x, int pos_y)
 {
     if ((pos_x >= 0) && (pos_y>=0))
@@ -385,6 +407,17 @@ int main()
     ajout_bouton(mat0, 35, 75, 70, 225);
     ajout_bouton(mat0, 85, 75, 120, 225);
     ajout_bouton(mat0, 135, 75, 170, 225);
+    
+    ajout_pic_droite(mat0, 100, 285);
+    ajout_pic_droite(mat0, 105, 285);
+    ajout_pic_droite(mat0, 110, 285);
+    ajout_pic_droite(mat0, 115, 285);
+    ajout_pic_droite(mat0, 120, 285);
+
+    ajout_bulle(mat0, 165, 20);
+    ajout_coupe(mat0, 165, 265);
+
+    ajout_caillou(mat0, 190, 60);
     
     /****Niveau 1 vivant****/
     ajout_sol_vie(mat1, 70, 230, 199, 299);
