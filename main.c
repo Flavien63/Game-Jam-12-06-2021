@@ -2,7 +2,7 @@
 
 int main()
 {
-    Uint8 *keystates;
+    Uint8 const *keystates;
     int grille[200][300];
     etat_perso_t *etat_perso;
     etat_perso = malloc(sizeof(etat_perso_t));
