@@ -7,10 +7,10 @@ Date : 12 juin 2021 - 13 juin 2021
 
 Membre de l'équipe :
 
-> CHEVALIER Alexandre
-> DERMIGNY Flavien
-> MEUNIER Valentin
-> VILLEDIEU DE TORCY Mathieu
+> CHEVALIER Alexandre  
+> DERMIGNY Flavien  
+> MEUNIER Valentin  
+> VILLEDIEU DE TORCY Mathieu  
 
 ---
 
